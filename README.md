@@ -2,4 +2,4 @@
 
 # installation guide
 
-1. to install package.json run: ``npm install´´
+1. to install package.json run: `npm install`
