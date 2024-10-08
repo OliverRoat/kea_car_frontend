@@ -1,0 +1,25 @@
+/* src/styles/CarBrandPage.css */
+.brand-logo-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .brand-logo-wrapper {
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+  }
+  
+  .brand-logo {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.2s ease; /* Ensures the zoom effect transitions smoothly */
+  }
+  
+  .brand-logo:hover {
+    transform: scale(1.1); /* This applies the zoom effect */
+  }
+  

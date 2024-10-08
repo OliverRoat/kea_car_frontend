@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { useState } from "react";
+import LoginPage from "./pages/LoginPage";
+import CarBrandPage from "./pages/CarBrandPage";
+import ModelPage from "./pages/ModelPage";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route
+          path="/login"
+          element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+          path="/brands"
+          element={isLoggedIn ? <CarBrandPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/brands/:brand"
+          element={isLoggedIn ? <ModelPage /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
