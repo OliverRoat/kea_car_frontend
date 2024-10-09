@@ -15,18 +15,16 @@ function CarBrandPage() {
   return (
     <div>
       <h1>Choose a Car Brand</h1>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div className="containerCarbrand">
         {brands.map((brand) => (
           <div
             key={brand.name}
             onClick={() => navigate(`/brands/${brand.name.toLowerCase()}`)}
-            style={{ cursor: "pointer", textAlign: "center" }} // Optional styling
           >
             <img
+              className="logoCarbrand"
               src={brand.logo}
               alt={`${brand.name} logo`}
-              width="100"
-              height="100"
             />
             <p>{brand.name}</p>
           </div>

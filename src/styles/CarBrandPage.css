@@ -7,19 +7,19 @@
     flex-wrap: wrap;
   }
   
-  .brand-logo-wrapper {
-    text-align: center;
-    cursor: pointer;
-    margin: 20px;
+  .containerCarbrand {
+     display: flex;
+     justify-content: space-around 
   }
   
-  .brand-logo {
+  .logoCarbrand {
+    object-fit: cover;
     width: 100px;
     height: 100px;
-    transition: transform 0.2s ease; /* Ensures the zoom effect transitions smoothly */
+    transition: transform 0.2s ease; 
   }
   
-  .brand-logo:hover {
-    transform: scale(1.1); /* This applies the zoom effect */
+  .logoCarbrand:hover {
+    transform: scale(1.1);
   }
   

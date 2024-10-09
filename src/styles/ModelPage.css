@@ -1,0 +1,24 @@
+/* src/styles/ModelPage.css */
+
+.model-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.model-item {
+  text-align: center;
+  margin: 20px;
+}
+
+.model-image {
+  width: 150px;
+  height: 150px;
+  transition: transform 0.2s ease;
+}
+
+.model-image:hover {
+  transform: scale(1.1);
+}

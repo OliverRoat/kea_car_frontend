@@ -1,11 +1,42 @@
 import { useParams } from "react-router-dom";
+import "../styles/ModelPage.css"; // Import the CSS for ModelPage
 
-const carModels: { [key: string]: string[] } = {
-  bmw: ["Series 1", "Series 3", "Series 5", "X5", "i8"],
-  mercedes: ["A-Class", "C-Class", "E-Class", "S-Class", "GLE"],
-  audi: ["A3", "A4", "A6", "Q5", "Q7"],
-  skoda: ["Fabia", "Octavia", "Superb", "Kodiaq", "Scala"],
-  ford: ["Fiesta", "Focus", "Mustang", "Explorer", "Ranger"],
+const carModels: { [key: string]: { name: string; image: string }[] } = {
+  bmw: [
+    { name: "Series 1", image: "/Series 1.png" },
+    { name: "Series 2", image: "/Series 2.png" },
+    { name: "Series 3", image: "/Series 3.png" },
+    { name: "X5", image: "/X6.png" },
+    { name: "i8", image: "/i8.png" },
+  ],
+  mercedes: [
+    { name: "A-Class", image: "/a-class.png" },
+    { name: "C-Class", image: "/c-class.png" },
+    { name: "S-Class", image: "/s-class.png" },
+    { name: "G-Class", image: "/g-class.png" },
+    { name: "AmgGT", image: "/amgGT.png" },
+  ],
+  audi: [
+    { name: "A1", image: "/a1.png" },
+    { name: "A3", image: "/a3.png" },
+    { name: "A4", image: "/a4.png" },
+    { name: "A6", image: "/a6.png" },
+    { name: "R8", image: "/r8.png" },
+  ],
+  skoda: [
+    { name: "Citigo", image: "/citigo.png" },
+    { name: "Yeti", image: "/yeti.png" },
+    { name: "Rapid", image: "/rapid.png" },
+    { name: "Octavia", image: "/octavia.png" },
+    { name: "Kodiaq", image: "/kodiaq.png" },
+  ],
+  ford: [
+    { name: "Fiesta", image: "/fiesta.png" },
+    { name: "Fusion", image: "/fusion.png" },
+    { name: "Explorer", image: "/explorer.png" },
+    { name: "Pickup", image: "/pickup.png" },
+    { name: "Mustang", image: "/mustang.png" },
+  ],
 };
 
 function ModelPage() {
@@ -21,11 +52,14 @@ function ModelPage() {
         Models
       </h1>
 
-      <ul>
+      <div className="model-grid">
         {models.map((model) => (
-          <li key={model}>{model}</li>
+          <div key={model.name} className="model-item">
+            <img src={model.image} alt={model.name} className="model-image" />
+            <p>{model.name}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
