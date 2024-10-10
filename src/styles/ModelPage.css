@@ -1,24 +1,55 @@
-/* src/styles/ModelPage.css */
-
+/* mobile */
 .model-grid {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column; /* Stack items vertically for mobile */
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   margin-top: 20px;
 }
 
 .model-item {
   text-align: center;
-  margin: 20px;
+  margin: 10px 0; /* Reduce margin for mobile */
 }
 
 .model-image {
-  width: 150px;
-  height: 150px;
+  width: 100px; /* Smaller images for mobile */
+  height: auto;
   transition: transform 0.2s ease;
 }
 
 .model-image:hover {
   transform: scale(1.1);
+}
+
+/* tablet */
+@media only screen and (min-width: 600px) {
+  .model-grid {
+    flex-direction: row; /* For tablet, display in rows again */
+    justify-content: space-around;
+  }
+
+  .model-item {
+    margin: 15px;
+  }
+
+  .model-image {
+    width: 125px; /* Slightly larger for tablet */
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+  .model-grid {
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .model-item {
+    margin: 20px;
+  }
+
+  .model-image {
+    width: 150px; /* Default size for desktop */
+  }
 }
