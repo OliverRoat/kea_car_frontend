@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import "../styles/ModelPage.css"; // Import the CSS for ModelPage
+import { useNavigate, useParams } from "react-router-dom";
+import "../styles/ModelPage.css";
 
 const carModels: { [key: string]: { name: string; image: string }[] } = {
   bmw: [
@@ -42,6 +42,10 @@ const carModels: { [key: string]: { name: string; image: string }[] } = {
 function ModelPage() {
   const { brand } = useParams<{ brand: string }>();
   const models = carModels[brand?.toLowerCase() || ""] || [];
+  const navigate = useNavigate();
+  const handleModelSelect = (model: string) => {
+    navigate(`/brands/${brand?.toLowerCase()}/models/${model.toLowerCase()}/colors`);
+  };
 
   return (
     <div>
@@ -54,7 +58,12 @@ function ModelPage() {
 
       <div className="model-grid">
         {models.map((model) => (
-          <div key={model.name} className="model-item">
+          <div
+            key={model.name}
+            className="model-item"
+            onClick={() => handleModelSelect(model.name)} // Navigate on click
+            style={{ cursor: "pointer" }}
+          >
             <img src={model.image} alt={model.name} className="model-image" />
             <p>{model.name}</p>
           </div>

@@ -8,6 +8,8 @@ import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import CarBrandPage from "./pages/CarBrandPage";
 import ModelPage from "./pages/ModelPage";
+import CarColorPage from "./pages/CarColorPage"
+import CarAccessoriesPage from "./pages/CarAccessoriesPage";
 import "./App.css";
 
 function App() {
@@ -29,6 +31,18 @@ function App() {
           element={isLoggedIn ? <ModelPage /> : <Navigate to="/login" />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
+        <Route 
+          path="/brands/:brand/models/:model/colors"  
+          element={<CarColorPage />} 
+        />
+        <Route 
+          path="/brands/:brand/models/:model/colors" 
+          element={<CarColorPage />} 
+        />
+        <Route 
+          path="/brands/:brand/models/:model/colors/:color/accessories" 
+          element={<CarAccessoriesPage />}
+        />
       </Routes>
     </Router>
   );
