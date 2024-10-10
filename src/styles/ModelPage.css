@@ -1,8 +1,7 @@
 /* mobile */
 .model-grid {
-  display: flex;
-  flex-direction: column; /* Stack items vertically for mobile */
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
   margin-top: 20px;
 }
@@ -10,6 +9,7 @@
 .model-item {
   text-align: center;
   margin: 10px 0; /* Reduce margin for mobile */
+  cursor: pointer;
 }
 
 .model-image {
@@ -27,6 +27,7 @@
   .model-grid {
     flex-direction: row; /* For tablet, display in rows again */
     justify-content: space-around;
+    grid-template-columns: 1fr 1fr;
   }
 
   .model-item {
@@ -43,6 +44,7 @@
   .model-grid {
     justify-content: space-around;
     flex-wrap: wrap;
+    display: flex;
   }
 
   .model-item {

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import '../styles/CarAccessoriesPage.css';
+import ToggleButton from "../components/ToggleButton";
 
 const accessoriesList: string[] = [
   "Air Conditioning",
@@ -57,6 +59,8 @@ function CarAccessoriesPage() {
           </div>
         ))}
       </div>
+      <h2>Want insurance?</h2>
+        <ToggleButton />
       <h2>Selected Accessories</h2>
       <ul>
         {selectedAccessories.map((accessory) => (

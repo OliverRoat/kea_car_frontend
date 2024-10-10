@@ -61,9 +61,8 @@ function ModelPage() {
           <div
             key={model.name}
             className="model-item"
-            onClick={() => handleModelSelect(model.name)} // Navigate on click
-            style={{ cursor: "pointer" }}
-          >
+            onClick={() => handleModelSelect(model.name)}
+            >
             <img src={model.image} alt={model.name} className="model-image" />
             <p>{model.name}</p>
           </div>
