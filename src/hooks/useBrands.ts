@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
  
-interface Brand {
+export interface Brand {
   id: number;
   name: string;
 }
