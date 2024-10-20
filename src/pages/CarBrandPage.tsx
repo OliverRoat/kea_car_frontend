@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/CarBrandPage.css";
 import useBrands from "../hooks/useBrands";
-import logo from "../../public/Audi-logo.png"; // Assuming logo from database or public folder
+import logo from "../../public/Audi-logo.png";
 
 function CarBrandPage() {
   const { brands, error } = useBrands();
@@ -20,9 +20,7 @@ function CarBrandPage() {
         <button onClick={() => navigate("/newcustomers")}>
           Create New Customer
         </button>
-        <button onClick={() => navigate("/customers")}>
-          View Customers
-        </button>
+        <button onClick={() => navigate("/customers")}>View Customers</button>
       </div>
 
       {/* Existing car brand selection */}
