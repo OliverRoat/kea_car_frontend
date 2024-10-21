@@ -4,6 +4,7 @@ import apiClient from "../services/apiClient";
 export interface Brand {
   id: number;
   name: string;
+  logo: string;
 }
  
 const useBrands = () => {
