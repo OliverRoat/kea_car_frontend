@@ -12,6 +12,7 @@ import CarColorPage from "./pages/CarColorPage";
 import CarAccessoriesPage from "./pages/CarAccessoriesPage";
 import CustomersPage from "./pages/CustomersPage";
 import NewCustomersPage from "./pages/NewCustomersPage";
+import CarReceiptPage from "./pages/CarReceiptPage";
 import "./App.css";
 
 function App() {
@@ -47,11 +48,17 @@ function App() {
         {/* Customer pages */}
         <Route
           path="/customers"
-          element={isLoggedIn ? <CustomersPage /> : <Navigate to="/login" />}
+          element={<CustomersPage />}
+          //element={isLoggedIn ? <CustomersPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/newcustomers"
-          element={isLoggedIn ? <NewCustomersPage /> : <Navigate to="/login" />}
+          element={<NewCustomersPage />}
+          //element={isLoggedIn ? <NewCustomersPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/carreceipt"
+          element={<CarReceiptPage />}
         />
 
         {/* Redirect unknown paths to login */}
