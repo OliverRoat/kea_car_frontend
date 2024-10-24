@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
  
 export interface Color {
-  id: number;
+  id: string;
   name: string;
   price: number;
   red_value: number;

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
  
 export interface Brand {
-  id: number;
+  id: string;
   name: string;
-  logo: string;
+  logo_url: string;
 }
  
 const useBrands = () => {

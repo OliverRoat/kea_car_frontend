@@ -22,7 +22,7 @@ function CarBrandPage() {
           >
             <img
               className="logoCarbrand"
-              src={brand.logo}
+              src={brand.logo_url}
               alt={`${brand.name} logo`}
             />
             <p>{brand.name}</p>

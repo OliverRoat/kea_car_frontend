@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
  
 export interface SalesPerson {
-  id: number;
+  id: string;
   email: string;
   first_name: string;
   last_name: string;

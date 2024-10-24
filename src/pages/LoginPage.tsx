@@ -7,9 +7,9 @@ interface LoginPageProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>; // Defining props
 }
 const credentials = {
-  email: "lars@gmail.com",
-  password: "hemmeligkode123"
-}
+  email: "hans@gmail.com",
+  password: "hans123",
+};
 
 function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   const { salesPerson, error } = useLogin(credentials);
@@ -24,7 +24,7 @@ function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   };
 
   if (error) {
-    return <div>{error}</div>
+    return <div>{error}</div>;
   }
 
   return (
