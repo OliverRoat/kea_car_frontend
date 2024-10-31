@@ -1,26 +1,18 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/ModelPage.css";
 import useModels from "../hooks/useModels";
-import useBrands from "../hooks/useBrands";
 
 function ModelPage() {
   const { brand } = useParams<{ brand: string }>(); // Get the brand name from the URL params
-  const { brands, error: brandsError } = useBrands(); // Fetch all brands to get the full brand details
+  const location = useLocation();
+  const brandId = location.state?.id; // Get brand ID from the location state
+
   const navigate = useNavigate();
 
-  // Find the selected brand by name (case-insensitive)
-  const selectedBrand = brands.find(
-    (b) => b.name.toLowerCase() === brand?.toLowerCase()
-  );
-
-  // If the selected brand exists, pass the brand_id to useModels
+  // Pass the brand ID to useModels for fetching models
   const { models, error: modelsError } = useModels({
-    brand: selectedBrand || null,
+    brandId: brandId || null,
   });
-
-  if (brandsError) {
-    return <div>Error fetching brands: {brandsError}</div>;
-  }
 
   if (modelsError) {
     return <div>Error fetching models: {modelsError}</div>;

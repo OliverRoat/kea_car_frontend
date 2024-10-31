@@ -18,7 +18,11 @@ function CarBrandPage() {
         {brands.map((brand) => (
           <div
             key={brand.id}
-            onClick={() => navigate(`/brands/${brand.name.toLowerCase()}`)}
+            onClick={() =>
+              navigate(`/brands/${brand.name.toLowerCase()}`, {
+                state: { id: brand.id },
+              })
+            }
           >
             <img
               className="logoCarbrand"

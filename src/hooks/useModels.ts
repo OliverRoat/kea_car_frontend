@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
-import { Brand } from "./useBrands";
+import { Color } from "./useColors";
 
 export interface ModelQuery {
-  brand: Brand | null;
+  brandId: string | null;
 }
 
 interface Model {
@@ -11,6 +11,7 @@ interface Model {
   name: string;
   price: number;
   image_url: string;
+  colors: Color[];
 }
 
 const useModels = (modelQuery: ModelQuery) => {
@@ -18,18 +19,15 @@ const useModels = (modelQuery: ModelQuery) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!modelQuery.brand) return;
+    if (!modelQuery.brandId) return;
 
     apiClient
-      .get<Model[]>(
-        "/models",
-        {
-          params: { brand_id: modelQuery.brand.id },
-        }
-      )
+      .get<Model[]>("/models", {
+        params: { brand_id: modelQuery.brandId },
+      })
       .then((response) => setModels(response.data))
       .catch((error) => setError(error.message));
-  }, [modelQuery.brand]);
+  }, [modelQuery.brandId]);
 
   return { models, error };
 };
