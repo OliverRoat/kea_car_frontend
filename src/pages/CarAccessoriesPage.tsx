@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import '../styles/CarAccessoriesPage.css';
+import { useState } from "react";
+import "../styles/CarAccessoriesPage.css";
 import ToggleButton from "../components/ToggleButton";
 
 const accessoriesList: string[] = [
@@ -45,7 +45,13 @@ function CarAccessoriesPage() {
   return (
     <div>
       <h1>Select Car Accessories (Up to 10)</h1>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "10px",
+        }}
+      >
         {accessoriesList.map((accessory) => (
           <div key={accessory}>
             <label>
@@ -60,7 +66,7 @@ function CarAccessoriesPage() {
         ))}
       </div>
       <h2>Want insurance?</h2>
-        <ToggleButton />
+      <ToggleButton />
       <h2>Selected Accessories</h2>
       <ul>
         {selectedAccessories.map((accessory) => (

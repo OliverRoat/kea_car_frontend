@@ -1,6 +1,7 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/ModelPage.css";
 import useModels from "../hooks/useModels";
+import { Color } from "../hooks/useColors"; // Import the Color type
 
 function ModelPage() {
   const { brand } = useParams<{ brand: string }>(); // Get the brand name from the URL params
@@ -18,9 +19,21 @@ function ModelPage() {
     return <div>Error fetching models: {modelsError}</div>;
   }
 
-  const handleModelSelect = (model: string) => {
+  const handleModelSelect = (model: {
+    id: string;
+    name: string;
+    colors: Color[];
+  }) => {
     navigate(
-      `/brands/${brand?.toLowerCase()}/models/${model.toLowerCase()}/colors`
+      `/brands/${brand?.toLowerCase()}/models/${model.name.toLowerCase()}/colors`,
+      {
+        state: {
+          modelId: model.id,
+          modelName: model.name,
+          colors: model.colors,
+          brand,
+        },
+      }
     );
   };
 
@@ -38,7 +51,7 @@ function ModelPage() {
           <div
             key={model.id}
             className="model-item"
-            onClick={() => handleModelSelect(model.name)}
+            onClick={() => handleModelSelect(model)}
           >
             <img
               src={model.image_url}

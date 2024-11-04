@@ -1,48 +1,22 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/CarColorPage.css";
 
-class Color {
-  name: string;
-  red_value: number;
-  green_value: number;
-  blue_value: number;
-
-  constructor(
-    name: string,
-    red_value: number,
-    green_value: number,
-    blue_value: number
-  ) {
-    this.name = name;
-    this.red_value = red_value;
-    this.green_value = green_value;
-    this.blue_value = blue_value;
-  }
-}
-
-const carColors = [
-  new Color("Red", 255, 0, 0),
-  new Color("Green", 0, 255, 0),
-  new Color("Blue", 0, 0, 255),
-  new Color("Black", 0, 0, 0),
-  new Color("White", 255, 255, 255),
-];
-
 function CarColorPage() {
-  const { brand, model } = useParams<{ brand: string; model: string }>();
+  const location = useLocation();
+  const { brand, modelId, modelName, colors } = location.state || {};
   const navigate = useNavigate();
 
   const handleColorSelect = (color: string) => {
-    navigate(`/brands/${brand}/models/${model}/colors/${color}/accessories`);
+    navigate(`/brands/${brand}/models/${modelId}/colors/${color}/accessories`);
   };
 
   return (
     <div>
-      <h1>Select a Color for {model}</h1>
+      <h1>Select a Color for {modelName}</h1>
       <div className="color-grid">
-        {carColors.map((color) => (
+        {colors.map((color: any) => (
           <div
-            key={color.name}
+            key={color.id}
             className="color-item"
             onClick={() => handleColorSelect(color.name)}
           >
