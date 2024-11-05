@@ -10,17 +10,16 @@ export interface Customer {
   address: string;
 }
 
-interface UseCustomerReturn {
+interface UseCustomersReturn {
   customers: Customer[];
   customer: Customer | null;
   error: string;
   loading: boolean;
   fetchAllCustomers: () => void;
   fetchCustomerById: (id: string) => void;
-  createCustomer: (newCustomer: Omit<Customer, "id">) => void;
 }
 
-const useCustomer = (): UseCustomerReturn => {
+const useCustomers = (): UseCustomersReturn => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [error, setError] = useState<string>("");
@@ -46,16 +45,6 @@ const useCustomer = (): UseCustomerReturn => {
       .finally(() => setLoading(false));
   };
 
-  // Create a new customer
-  const createCustomer = (newCustomer: Omit<Customer, "id">) => {
-    setLoading(true);
-    apiClient
-      .post<Customer>("/customer", newCustomer)
-      .then((response) => setCustomers((prev) => [...prev, response.data]))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  };
-
   // Initial data load - fetch all customers on mount
   useEffect(() => {
     fetchAllCustomers();
@@ -68,8 +57,7 @@ const useCustomer = (): UseCustomerReturn => {
     loading,
     fetchAllCustomers,
     fetchCustomerById,
-    createCustomer,
   };
 };
 
-export default useCustomer;
+export default useCustomers;
