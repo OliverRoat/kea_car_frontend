@@ -1,7 +1,6 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../styles/ModelPage.css";
-import useModels from "../hooks/useModels";
-import { Color } from "../hooks/useColors"; // Import the Color type
+import useModels, { Color } from "../hooks/useModels";
 
 function ModelPage() {
   const { brand } = useParams<{ brand: string }>(); // Get the brand name from the URL params
@@ -22,16 +21,16 @@ function ModelPage() {
   const handleModelSelect = (model: {
     id: string;
     name: string;
+    price: number;
     colors: Color[];
   }) => {
     navigate(
       `/brands/${brand?.toLowerCase()}/models/${model.name.toLowerCase()}/colors`,
       {
         state: {
-          modelId: model.id,
-          modelName: model.name,
-          colors: model.colors,
           brand,
+          model,
+          colors: model.colors,
         },
       }
     );

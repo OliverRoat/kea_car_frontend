@@ -4,7 +4,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginPage from "./pages/LoginPage";
 import CarBrandPage from "./pages/CarBrandPage";
 import ModelPage from "./pages/ModelPage";
@@ -12,22 +12,30 @@ import CarColorPage from "./pages/CarColorPage";
 import CarAccessoriesPage from "./pages/CarAccessoriesPage";
 import CustomersPage from "./pages/CustomersPage";
 import NewCustomersPage from "./pages/NewCustomersPage";
-import CarReceiptPage from "./pages/CarReceiptPage";
+import CarsListPage from "./pages/CarsListPage";
+import NavBar from "./components/NavBar";
 import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("access_token");
+    setIsLoggedIn(!!token); // Set login status based on token presence
+  }, []);
+
   return (
     <Router>
+      {/* Conditionally render NavBar only when logged in */}
+      {isLoggedIn && <NavBar setIsLoggedIn={setIsLoggedIn} />}
+
       <Routes>
-        {/* Login page */}
         <Route
           path="/login"
           element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
         />
 
-        {/* Car-related pages */}
+        {/* Protected Routes */}
         <Route
           path="/brands"
           element={isLoggedIn ? <CarBrandPage /> : <Navigate to="/login" />}
@@ -42,26 +50,23 @@ function App() {
         />
         <Route
           path="/brands/:brand/models/:model/colors/:color/accessories"
-          element={isLoggedIn ? <CarAccessoriesPage /> : <Navigate to="/login" />}
+          element={
+            isLoggedIn ? <CarAccessoriesPage /> : <Navigate to="/login" />
+          }
         />
-
-        {/* Customer pages */}
         <Route
           path="/customers"
-          element={<CustomersPage />}
-          //element={isLoggedIn ? <CustomersPage /> : <Navigate to="/login" />}
+          element={isLoggedIn ? <CustomersPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/newcustomers"
-          element={<NewCustomersPage />}
-          //element={isLoggedIn ? <NewCustomersPage /> : <Navigate to="/login" />}
+          path="/new-customer"
+          element={isLoggedIn ? <NewCustomersPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/carreceipt"
-          element={<CarReceiptPage />}
+          path="/cars"
+          element={isLoggedIn ? <CarsListPage /> : <Navigate to="/login" />}
         />
 
-        {/* Redirect unknown paths to login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

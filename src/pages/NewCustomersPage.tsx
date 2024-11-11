@@ -1,43 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../services/apiClient";
 
 function NewCustomerPage() {
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const customerData = {
-      email: email,
-      phone_number: phoneNumber,
-      first_name: firstName,
-      last_name: lastName,
-      address: address,
-    };
-
+  const handleCreateCustomer = async () => {
     try {
-      const response = await fetch("/api/customers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(customerData),
-      });
+      // Send POST request to create a new customer
+      const newCustomer = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone_number: phoneNumber,
+        address,
+      };
+      await apiClient.post("/customer", newCustomer);
 
-      if (response.ok) {
-        navigate("/customers"); // Redirect after successful creation
-      } else {
-        const result = await response.json();
-        setError(result.message || "Failed to create customer");
-      }
+      // Navigate back to the CustomerPage upon success
+      navigate("/customers");
     } catch (err) {
-      setError("Failed to create customer due to a server error.");
+      setError("Failed to create customer. Please try again.");
     }
   };
 
@@ -45,24 +34,12 @@ function NewCustomerPage() {
     <div>
       <h1>Create New Customer</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Phone Number:</label>
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCreateCustomer();
+        }}
+      >
         <div>
           <label>First Name:</label>
           <input
@@ -82,6 +59,23 @@ function NewCustomerPage() {
           />
         </div>
         <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Phone Number:</label>
+          <input
+            type="text"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </div>
+        <div>
           <label>Address:</label>
           <input
             type="text"
@@ -89,7 +83,7 @@ function NewCustomerPage() {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <button type="submit">Create New Customer</button>
+        <button type="submit">Save Customer</button>
       </form>
     </div>
   );

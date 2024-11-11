@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import "../styles/ToggleButton.css";
 
-const ToggleButton = () => {
-    const [isToggled, setIsToggled] = useState(false);
-  
-    const handleToggle = () => {
-      setIsToggled(!isToggled);
-    };
+interface ToggleButtonProps {
+  isToggled: boolean;
+  onToggle: () => void;
+}
 
-    return (
-        <button onClick={handleToggle}>
-            {isToggled ? "ON" : "OFF"}
-        </button>
-    );
+const ToggleButton: React.FC<ToggleButtonProps> = ({ isToggled, onToggle }) => {
+  return (
+    <div
+      className={`toggle-container ${isToggled ? "toggled" : ""}`}
+      onClick={onToggle}
+    >
+      <div className="toggle-slider"></div>
+      <span className="toggle-label">{isToggled ? "YES" : "NO"}</span>
+    </div>
+  );
 };
+
 export default ToggleButton;

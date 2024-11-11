@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
-import { Color } from "./useColors";
 
 export interface ModelQuery {
   brandId: string | null;
 }
 
-interface Model {
+export interface Model { 
   id: string;
   name: string;
   price: number;
   image_url: string;
   colors: Color[];
+}
+export interface Color {
+  id: string;
+  name: string;
+  price: number;
+  red_value: number;
+  green_value: number;
+  blue_value: number;
 }
 
 const useModels = (modelQuery: ModelQuery) => {

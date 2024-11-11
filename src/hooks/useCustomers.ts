@@ -16,7 +16,8 @@ interface UseCustomersReturn {
   error: string;
   loading: boolean;
   fetchAllCustomers: () => void;
-  fetchCustomerById: (id: string) => void;
+  createCustomer: (newCustomer: Omit<Customer, "id">) => void;
+  deleteCustomer: (id: string) => void;
 }
 
 const useCustomers = (): UseCustomersReturn => {
@@ -25,7 +26,6 @@ const useCustomers = (): UseCustomersReturn => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Fetch all customers
   const fetchAllCustomers = () => {
     setLoading(true);
     apiClient
@@ -35,17 +35,24 @@ const useCustomers = (): UseCustomersReturn => {
       .finally(() => setLoading(false));
   };
 
-  // Fetch a single customer by ID
-  const fetchCustomerById = (id: string) => {
+  const createCustomer = (newCustomer: Omit<Customer, "id">) => {
     setLoading(true);
     apiClient
-      .get<Customer>(`/customer/${id}`)
-      .then((response) => setCustomer(response.data))
+      .post<Customer>("/customer", newCustomer)
+      .then(() => fetchAllCustomers()) // Refresh list after creation
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
   };
 
-  // Initial data load - fetch all customers on mount
+  const deleteCustomer = (id: string) => {
+    setLoading(true);
+    apiClient
+      .delete(`/customer/${id}`)
+      .then(() => setCustomers(customers.filter((customer) => customer.id !== id)))
+      .catch((error) => setError(error.message))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
     fetchAllCustomers();
   }, []);
@@ -56,7 +63,8 @@ const useCustomers = (): UseCustomersReturn => {
     error,
     loading,
     fetchAllCustomers,
-    fetchCustomerById,
+    createCustomer,
+    deleteCustomer,
   };
 };
 
