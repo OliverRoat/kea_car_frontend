@@ -26,6 +26,7 @@ export interface Car {
   insurances: Insurance[];
   customer: Customer;
   sales_person: SalesPerson;
+  total_price: number;
 }
 
 interface UseCarReturn {

@@ -1,39 +1,58 @@
 import { useNavigate } from "react-router-dom";
-import "../styles/CarBrandPage.css";
+import {
+  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
+  Typography,
+  Box,
+} from "@mui/material";
 import useBrands from "../hooks/useBrands";
 
 function CarBrandPage() {
   const { brands, error } = useBrands();
-
   const navigate = useNavigate();
 
   if (error) {
-    return <div>Error Message: {error}</div>;
+    return <Box color="red">Error Message: {error}</Box>;
   }
 
   return (
-    <div>
-      <h1>Choose a Car Brand</h1>
-      <div className="containerCarbrand">
+    <Box p={3}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Choose a Car Brand
+      </Typography>
+      <Grid container spacing={3} justifyContent="center">
         {brands.map((brand) => (
-          <div
-            key={brand.id}
-            onClick={() =>
-              navigate(`/brands/${brand.name.toLowerCase()}`, {
-                state: { id: brand.id },
-              })
-            }
-          >
-            <img
-              className="logoCarbrand"
-              src={brand.logo_url}
-              alt={`${brand.name} logo`}
-            />
-            <p>{brand.name}</p>
-          </div>
+          <Grid item xs={6} sm={4} md={3} key={brand.id}>
+            <Card
+              onClick={() =>
+                navigate(`/brands/${brand.name.toLowerCase()}`, {
+                  state: { id: brand.id },
+                })
+              }
+            >
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  image={brand.logo_url}
+                  alt={`${brand.name} logo`}
+                  sx={{
+                    width: "100%",
+                    height: "100px",
+                    objectFit: "contain",
+                    padding: 2,
+                  }}
+                />
+                <Typography variant="h6" align="center" gutterBottom>
+                  {brand.name}
+                </Typography>
+              </CardActionArea>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 }
 

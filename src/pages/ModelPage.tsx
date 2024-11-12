@@ -1,5 +1,13 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import "../styles/ModelPage.css";
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+} from "@mui/material";
 import useModels, { Color } from "../hooks/useModels";
 
 function ModelPage() {
@@ -15,7 +23,7 @@ function ModelPage() {
   });
 
   if (modelsError) {
-    return <div>Error fetching models: {modelsError}</div>;
+    return <Box color="red">Error fetching models: {modelsError}</Box>;
   }
 
   const handleModelSelect = (model: {
@@ -27,42 +35,56 @@ function ModelPage() {
     navigate(
       `/brands/${brand?.toLowerCase()}/models/${model.name.toLowerCase()}/colors`,
       {
-        state: {
-          brand,
-          model,
-          colors: model.colors,
-        },
+        state: { brand, model, colors: model.colors },
       }
     );
   };
 
   return (
-    <div>
-      <h1>
+    <Box p={3}>
+      <Typography variant="h4" align="center" gutterBottom>
         {brand
           ? `${brand.charAt(0).toUpperCase()}${brand.slice(1)}`
           : "Unknown"}{" "}
         Models
-      </h1>
-
-      <div className="model-grid">
+      </Typography>
+      <Grid container spacing={3} justifyContent="center">
         {models.map((model) => (
-          <div
-            key={model.id}
-            className="model-item"
-            onClick={() => handleModelSelect(model)}
-          >
-            <img
-              src={model.image_url}
-              alt={model.name}
-              className="model-image"
-            />
-            <p>{model.name}</p>
-            <p>Price: {model.price}</p>
-          </div>
+          <Grid item xs={12} sm={6} md={4} key={model.id}>
+            <Card
+              onClick={() => handleModelSelect(model)}
+              sx={{ cursor: "pointer" }}
+            >
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={model.image_url}
+                  alt={model.name}
+                  sx={{
+                    objectFit: "contain",
+                    transition: "transform 0.2s ease",
+                    "&:hover": { transform: "scale(1.1)" },
+                  }}
+                />
+                <CardContent>
+                  <Typography variant="h6" align="center">
+                    {model.name}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    color="text.secondary"
+                  >
+                    Price: ${model.price}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 }
 

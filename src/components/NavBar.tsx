@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Button, Box, Typography } from "@mui/material";
 
 interface NavBarProps {
   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -19,11 +20,27 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <nav style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
-      <button onClick={() => navigate("/brands")}>Home</button>
-      <button onClick={() => navigate("/customers")}>Customers</button>
-      <button onClick={handleLogout}>Logout</button>
-    </nav>
+    <AppBar position="static">
+      <Toolbar>
+        <Box display="flex" flexGrow={1} alignItems="center">
+          <Typography variant="h6" component="div" sx={{ mr: 2 }}>
+            Car Management
+          </Typography>
+          <Button color="inherit" onClick={() => navigate("/brands")}>
+            Home
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/customers")}>
+            Customers
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/cars")}>
+            Cars
+          </Button>
+        </Box>
+        <Button color="inherit" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 

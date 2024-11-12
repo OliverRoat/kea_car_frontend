@@ -72,6 +72,8 @@ function CarsListPage() {
               Purchase Deadline:{" "}
               {new Date(car.purchase_deadline).toLocaleDateString()}
             </p>
+
+            <p>Total Price: ${car.total_price.toFixed(2)}</p>
           </li>
         ))}
       </ul>
