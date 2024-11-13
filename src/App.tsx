@@ -14,6 +14,7 @@ import CustomersPage from "./pages/CustomersPage";
 import NewCustomersPage from "./pages/NewCustomersPage";
 import CarsListPage from "./pages/CarsListPage";
 import NavBar from "./components/NavBar";
+import EditCustomerPage from "./pages/EditCustomerPage";
 import "./App.css";
 
 function App() {
@@ -66,6 +67,11 @@ function App() {
           path="/cars"
           element={isLoggedIn ? <CarsListPage /> : <Navigate to="/login" />}
         />
+        <Route
+        path="/edit-customer"
+        element={isLoggedIn ? <EditCustomerPage /> : <Navigate to="/login" />}
+        />
+
 
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>

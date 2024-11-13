@@ -1,4 +1,3 @@
-// src/pages/CustomersPage.tsx
 import { useNavigate } from "react-router-dom";
 import useCustomers from "../hooks/useCustomers";
 import { useEffect, useState } from "react";
@@ -7,6 +6,15 @@ import { Accessory } from "../hooks/useAccessories";
 import { Insurance } from "../hooks/useInsurances";
 import apiClient from "../services/apiClient";
 import axios from "axios";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  List,
+  ListItem,
+  Typography,
+  Stack,
+} from "@mui/material";
 
 function CustomersPage() {
   const { customers, error, loading } = useCustomers();
@@ -78,28 +86,63 @@ function CustomersPage() {
   };
 
   return (
-    <div>
-      <h1>Select a Customer</h1>
-      {loading && <p>Loading customers...</p>}
-      {error && <p>Error loading customers: {error}</p>}
-      <ul>
+    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 3 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Select a Customer
+      </Typography>
+      {loading && (
+        <Box display="flex" justifyContent="center" mt={2}>
+          <CircularProgress />
+        </Box>
+      )}
+      {error && (
+        <Typography color="error" align="center">
+          Error loading customers: {error}
+        </Typography>
+      )}
+      <List>
         {customers.map((customer) => (
-          <li
+          <ListItem
             key={customer.id}
+            component="div"
             onClick={() => handleCustomerSelect(customer.id)}
-            style={{ cursor: "pointer", marginBottom: "10px" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: 2,
+              borderRadius: 1,
+              border: "1px solid #ddd",
+              mb: 1,
+              cursor: "pointer",
+              backgroundColor: "#fff",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.03)",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              },
+            }}
           >
-            {customer.first_name} {customer.last_name} - {customer.email}
-          </li>
+            <Stack direction="row" spacing={2}>
+              <Typography variant="body1">
+                {customer.first_name} {customer.last_name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                {customer.email}
+              </Typography>
+            </Stack>
+          </ListItem>
         ))}
-      </ul>
-      <button
+      </List>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        sx={{ mt: 3 }}
         onClick={() => navigate("/new-customer")}
-        style={{ marginTop: "20px" }}
       >
         Add New Customer
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 }
 

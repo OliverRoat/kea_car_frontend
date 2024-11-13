@@ -52,6 +52,7 @@ function CarColorPage() {
                     backgroundColor: `rgb(${color.red_value}, ${color.green_value}, ${color.blue_value})`,
                     mx: "auto",
                     mt: 2,
+                    border: "3px solid #ddd",
                   }}
                 />
                 <CardContent>

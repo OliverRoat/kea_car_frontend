@@ -7,17 +7,18 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
+  Button,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useModels, { Color } from "../hooks/useModels";
 
 function ModelPage() {
-  const { brand } = useParams<{ brand: string }>(); // Get the brand name from the URL params
+  const { brand } = useParams<{ brand: string }>();
   const location = useLocation();
-  const brandId = location.state?.id; // Get brand ID from the location state
+  const brandId = location.state?.id;
 
   const navigate = useNavigate();
 
-  // Pass the brand ID to useModels for fetching models
   const { models, error: modelsError } = useModels({
     brandId: brandId || null,
   });
@@ -42,19 +43,24 @@ function ModelPage() {
 
   return (
     <Box p={3}>
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(-1)}
+        sx={{ mb: 3 }}
+        variant="contained"
+        color="primary"
+      >
+        Back
+      </Button>
+      
       <Typography variant="h4" align="center" gutterBottom>
-        {brand
-          ? `${brand.charAt(0).toUpperCase()}${brand.slice(1)}`
-          : "Unknown"}{" "}
-        Models
+        {brand ? `${brand.charAt(0).toUpperCase()}${brand.slice(1)}` : "Unknown"} Models
       </Typography>
+
       <Grid container spacing={3} justifyContent="center">
         {models.map((model) => (
           <Grid item xs={12} sm={6} md={4} key={model.id}>
-            <Card
-              onClick={() => handleModelSelect(model)}
-              sx={{ cursor: "pointer" }}
-            >
+            <Card onClick={() => handleModelSelect(model)} sx={{ cursor: "pointer" }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -71,11 +77,7 @@ function ModelPage() {
                   <Typography variant="h6" align="center">
                     {model.name}
                   </Typography>
-                  <Typography
-                    variant="body1"
-                    align="center"
-                    color="text.secondary"
-                  >
+                  <Typography variant="body1" align="center" color="text.secondary">
                     Price: ${model.price}
                   </Typography>
                 </CardContent>

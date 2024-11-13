@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../services/apiClient";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+  Alert,
+} from "@mui/material";
 
 function NewCustomerPage() {
   const [firstName, setFirstName] = useState("");
@@ -13,7 +21,6 @@ function NewCustomerPage() {
 
   const handleCreateCustomer = async () => {
     try {
-      // Send POST request to create a new customer
       const newCustomer = {
         first_name: firstName,
         last_name: lastName,
@@ -22,8 +29,6 @@ function NewCustomerPage() {
         address,
       };
       await apiClient.post("/customer", newCustomer);
-
-      // Navigate back to the CustomerPage upon success
       navigate("/customers");
     } catch (err) {
       setError("Failed to create customer. Please try again.");
@@ -31,61 +36,72 @@ function NewCustomerPage() {
   };
 
   return (
-    <div>
-      <h1>Create New Customer</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form
+    <Container maxWidth="sm" sx={{ mt: 5, p: 4, bgcolor: "#fff", borderRadius: 2, boxShadow: 3 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Create New Customer
+      </Typography>
+      
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+
+      <Box
+        component="form"
         onSubmit={(e) => {
           e.preventDefault();
           handleCreateCustomer();
         }}
+        noValidate
+        autoComplete="off"
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
-        <div>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Phone Number:</label>
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Address:</label>
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <button type="submit">Save Customer</button>
-      </form>
-    </div>
+        <TextField
+          label="First Name"
+          variant="outlined"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+        
+        <TextField
+          label="Last Name"
+          variant="outlined"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+        
+        <TextField
+          label="Email"
+          type="email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        
+        <TextField
+          label="Phone Number"
+          type="tel"
+          variant="outlined"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        
+        <TextField
+          label="Address"
+          variant="outlined"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+          Save Customer
+        </Button>
+      </Box>
+    </Container>
   );
 }
 

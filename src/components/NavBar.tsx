@@ -29,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
           <Button color="inherit" onClick={() => navigate("/brands")}>
             Home
           </Button>
-          <Button color="inherit" onClick={() => navigate("/customers")}>
+          <Button color="inherit" onClick={() => navigate("/edit-customer")}>
             Customers
           </Button>
           <Button color="inherit" onClick={() => navigate("/cars")}>
