@@ -7,5 +7,4 @@
   to = "/index.html"
   status = 200
 
-[build.enviroment]
-  VITE_APIURL="https://kea-car-backend.c7pixel.com/mysql"
+
