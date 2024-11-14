@@ -12,12 +12,21 @@ import {
   Switch,
   CircularProgress,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAccessories from "../hooks/useAccessories";
 import useInsurances from "../hooks/useInsurances";
 
 function CarAccessoriesPage() {
-  const { accessories, error: accessoriesError, loading: accessoriesLoading } = useAccessories();
-  const { insurances, error: insurancesError, loading: insurancesLoading } = useInsurances();
+  const {
+    accessories,
+    error: accessoriesError,
+    loading: accessoriesLoading,
+  } = useAccessories();
+  const {
+    insurances,
+    error: insurancesError,
+    loading: insurancesLoading,
+  } = useInsurances();
 
   const [selectedAccessories, setSelectedAccessories] = useState<string[]>([]);
   const [showInsurances, setShowInsurances] = useState(false);
@@ -34,13 +43,17 @@ function CarAccessoriesPage() {
 
   const handleAccessoryChange = (accessoryId: string) => {
     setSelectedAccessories((prev) =>
-      prev.includes(accessoryId) ? prev.filter((id) => id !== accessoryId) : [...prev, accessoryId]
+      prev.includes(accessoryId)
+        ? prev.filter((id) => id !== accessoryId)
+        : [...prev, accessoryId]
     );
   };
 
   const handleInsuranceChange = (insuranceId: string) => {
     setSelectedInsurances((prev) =>
-      prev.includes(insuranceId) ? prev.filter((id) => id !== insuranceId) : [...prev, insuranceId]
+      prev.includes(insuranceId)
+        ? prev.filter((id) => id !== insuranceId)
+        : [...prev, insuranceId]
     );
   };
 
@@ -52,13 +65,17 @@ function CarAccessoriesPage() {
       accessories: selectedAccessories
         .map((id) => {
           const accessory = accessories.find((acc) => acc.id === id);
-          return accessory ? { id: accessory.id, name: accessory.name, price: accessory.price } : null;
+          return accessory
+            ? { id: accessory.id, name: accessory.name, price: accessory.price }
+            : null;
         })
         .filter(Boolean),
       insurances: selectedInsurances
         .map((id) => {
           const insurance = insurances.find((ins) => ins.id === id);
-          return insurance ? { id: insurance.id, name: insurance.name, price: insurance.price } : null;
+          return insurance
+            ? { id: insurance.id, name: insurance.name, price: insurance.price }
+            : null;
         })
         .filter(Boolean),
     };
@@ -68,7 +85,27 @@ function CarAccessoriesPage() {
   };
 
   return (
-    <Box p={3}>
+    <Box p={3} position="relative">
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(-1)}
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          mt: 2,
+          ml: 2,
+          backgroundColor: "green",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "darkgreen",
+          },
+        }}
+        variant="contained"
+      >
+        Back
+      </Button>
+
       <Typography variant="h4" align="center" gutterBottom>
         Select Car Accessories and Insurance
       </Typography>
@@ -81,7 +118,9 @@ function CarAccessoriesPage() {
           {accessoriesLoading ? (
             <CircularProgress />
           ) : accessoriesError ? (
-            <Typography color="error">Error loading accessories: {accessoriesError}</Typography>
+            <Typography color="error">
+              Error loading accessories: {accessoriesError}
+            </Typography>
           ) : (
             <Grid container spacing={2}>
               {accessories.map((accessory) => (
@@ -91,7 +130,9 @@ function CarAccessoriesPage() {
                       checked={selectedAccessories.includes(accessory.id)}
                       onChange={() => handleAccessoryChange(accessory.id)}
                     />
-                    <Typography>{accessory.name} - ${accessory.price}</Typography>
+                    <Typography>
+                      {accessory.name} - ${accessory.price}
+                    </Typography>
                   </Box>
                 </Grid>
               ))}
@@ -101,16 +142,28 @@ function CarAccessoriesPage() {
 
         {/* Insurance Section */}
         <Card variant="outlined" sx={{ p: 2 }}>
-          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <Typography variant="h5">Insurance</Typography>
             <Box display="flex" alignItems="center" gap={1}>
-              <Typography color={!showInsurances ? "text.primary" : "text.secondary"}>NO</Typography>
+              <Typography
+                color={!showInsurances ? "text.primary" : "text.secondary"}
+              >
+                NO
+              </Typography>
               <Switch
                 checked={showInsurances}
                 onChange={() => setShowInsurances(!showInsurances)}
                 inputProps={{ "aria-label": "Toggle insurance selection" }}
               />
-              <Typography color={showInsurances ? "text.primary" : "text.secondary"}>YES</Typography>
+              <Typography
+                color={showInsurances ? "text.primary" : "text.secondary"}
+              >
+                YES
+              </Typography>
             </Box>
           </Box>
           {showInsurances && (
@@ -119,7 +172,9 @@ function CarAccessoriesPage() {
               {insurancesLoading ? (
                 <CircularProgress />
               ) : insurancesError ? (
-                <Typography color="error">Error loading insurances: {insurancesError}</Typography>
+                <Typography color="error">
+                  Error loading insurances: {insurancesError}
+                </Typography>
               ) : (
                 <Stack spacing={1}>
                   {insurances.map((insurance) => (
@@ -128,7 +183,9 @@ function CarAccessoriesPage() {
                         checked={selectedInsurances.includes(insurance.id)}
                         onChange={() => handleInsuranceChange(insurance.id)}
                       />
-                      <Typography>{insurance.name} - ${insurance.price}</Typography>
+                      <Typography>
+                        {insurance.name} - ${insurance.price}
+                      </Typography>
                     </Box>
                   ))}
                 </Stack>
@@ -139,7 +196,11 @@ function CarAccessoriesPage() {
       </Stack>
 
       <Box mt={4} textAlign="center">
-        <Button variant="contained" color="success" onClick={saveCarConfiguration}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={saveCarConfiguration}
+        >
           Save Car Configuration
         </Button>
       </Box>

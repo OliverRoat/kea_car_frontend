@@ -31,6 +31,7 @@ function CarBrandPage() {
                   state: { id: brand.id },
                 })
               }
+              sx={{ overflow: "hidden" }} // Ensures no overflow during zoom
             >
               <CardActionArea>
                 <CardMedia
@@ -42,6 +43,10 @@ function CarBrandPage() {
                     height: "100px",
                     objectFit: "contain",
                     padding: 2,
+                    transition: "transform 0.3s ease", // Smooth transition effect
+                    "&:hover": {
+                      transform: "scale(1.1)", // Zoom effect on hover
+                    },
                   }}
                 />
                 <Typography variant="h6" align="center" gutterBottom>

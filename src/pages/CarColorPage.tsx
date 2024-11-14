@@ -6,7 +6,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Button,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface Color {
   id: string;
@@ -32,7 +34,27 @@ function CarColorPage() {
   };
 
   return (
-    <Box p={3}>
+    <Box p={3} position="relative">
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(-1)}
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          mt: 2,
+          ml: 2,
+          backgroundColor: "green",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "darkgreen",
+          },
+        }}
+        variant="contained"
+      >
+        Back
+      </Button>
+
       <Typography variant="h4" align="center" gutterBottom>
         Select a Color for {model.name}
       </Typography>

@@ -14,7 +14,9 @@ import {
   ListItem,
   Typography,
   Stack,
+  IconButton,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function CustomersPage() {
   const { customers, error, loading } = useCustomers();
@@ -86,7 +88,29 @@ function CustomersPage() {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 3 }}>
+    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 3, position: "relative" }}>
+      {/* Back Button */}
+      <IconButton
+        onClick={() => navigate(-1)}
+        sx={{
+          position: "absolute",
+          top: 16,
+          left: 16,
+          color: "white",
+          backgroundColor: "green",
+          borderRadius: "8px",
+          padding: "8px 16px",
+          "&:hover": {
+            backgroundColor: "darkgreen",
+          },
+        }}
+      >
+        <ArrowBackIcon />
+        <Typography variant="button" sx={{ ml: 1 }}>
+          Back
+        </Typography>
+      </IconButton>
+
       <Typography variant="h4" align="center" gutterBottom>
         Select a Customer
       </Typography>
@@ -135,7 +159,7 @@ function CustomersPage() {
       </List>
       <Button
         variant="contained"
-        color="primary"
+        color="success"
         fullWidth
         sx={{ mt: 3 }}
         onClick={() => navigate("/new-customer")}

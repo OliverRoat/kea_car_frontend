@@ -1,7 +1,10 @@
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_URL;
+if (!baseURL)
+  console.error("API URL is not defined. Please check your environment variables.");
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:8000/mysql",
+  baseURL
 });
 
 apiClient.interceptors.request.use((config) => {

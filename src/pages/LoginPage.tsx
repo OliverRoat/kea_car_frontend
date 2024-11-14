@@ -33,19 +33,19 @@ function LoginPage({
   return (
     <Box
       sx={{
-        maxWidth: 400,
+        maxWidth: 600, // Increase maximum width for a larger box
         width: "100%",
-        margin: "50px auto",
-        padding: 3,
-        borderRadius: 2,
+        margin: "80px auto", // Add more margin to center the box lower
+        padding: 4, // Increase padding for a more spacious look
+        borderRadius: 3,
         backgroundColor: "#FFFFFF",
-        boxShadow: 3,
+        boxShadow: 5,
       }}
     >
-      <Typography variant="h5" align="center" gutterBottom>
+      <Typography variant="h4" align="center" gutterBottom>
         Login
       </Typography>
-      <Stack spacing={2}>
+      <Stack spacing={3}>
         <TextField
           label="Email"
           type="email"
@@ -53,6 +53,7 @@ function LoginPage({
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          sx={{ fontSize: "1rem" }}
         />
         <TextField
           label="Password"
@@ -61,6 +62,7 @@ function LoginPage({
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          sx={{ fontSize: "1rem" }}
         />
         <Button
           variant="contained"
@@ -68,6 +70,7 @@ function LoginPage({
           onClick={handleLogin}
           disabled={loading}
           fullWidth
+          sx={{ padding: "12px 0", fontSize: "1rem" }} // Larger button
         >
           {loading ? <CircularProgress size={24} /> : "Login"}
         </Button>
