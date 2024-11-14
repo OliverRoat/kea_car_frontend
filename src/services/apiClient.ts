@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = import.meta.env.VITE_APIURL;
 if (!baseURL)
   console.error("API URL is not defined. Please check your environment variables.");
 
