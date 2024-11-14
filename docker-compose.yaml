@@ -1,0 +1,8 @@
+services:
+  frontend:
+    image: frontend:v1.0
+    environment:
+      - NODE_ENV=production
+      - VITE_APIURL=https://kea-car-backend.c7pixel.com/mysql
+    ports:
+      - "5174:5174"
