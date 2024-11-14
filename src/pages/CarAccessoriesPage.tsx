@@ -129,6 +129,12 @@ function CarAccessoriesPage() {
                     <Checkbox
                       checked={selectedAccessories.includes(accessory.id)}
                       onChange={() => handleAccessoryChange(accessory.id)}
+                      sx={{
+                        color: "green",
+                        "&.Mui-checked": {
+                          color: "green",
+                        },
+                      }}
                     />
                     <Typography>
                       {accessory.name} - ${accessory.price}
@@ -158,6 +164,14 @@ function CarAccessoriesPage() {
                 checked={showInsurances}
                 onChange={() => setShowInsurances(!showInsurances)}
                 inputProps={{ "aria-label": "Toggle insurance selection" }}
+                sx={{
+                  "& .MuiSwitch-switchBase.Mui-checked": {
+                    color: "green",
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "green",
+                  },
+                }}
               />
               <Typography
                 color={showInsurances ? "text.primary" : "text.secondary"}
@@ -182,6 +196,12 @@ function CarAccessoriesPage() {
                       <Checkbox
                         checked={selectedInsurances.includes(insurance.id)}
                         onChange={() => handleInsuranceChange(insurance.id)}
+                        sx={{
+                          color: "green",
+                          "&.Mui-checked": {
+                            color: "green",
+                          },
+                        }}
                       />
                       <Typography>
                         {insurance.name} - ${insurance.price}
