@@ -162,7 +162,9 @@ function CustomersPage() {
         color="success"
         fullWidth
         sx={{ mt: 3 }}
-        onClick={() => navigate("/new-customer")}
+        onClick={() =>
+          navigate("/new-customer", { state: { redirectTo: "/customers" } })
+        }
       >
         Add New Customer
       </Button>

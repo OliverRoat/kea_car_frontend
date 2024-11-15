@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import apiClient from "../services/apiClient";
 import {
   Box,
@@ -18,6 +18,10 @@ function NewCustomerPage() {
   const [address, setAddress] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Determine where to navigate after creating a customer
+  const redirectTo = location.state?.redirectTo || "/customers";
 
   const handleCreateCustomer = async () => {
     try {
@@ -29,18 +33,27 @@ function NewCustomerPage() {
         address,
       };
       await apiClient.post("/customer", newCustomer);
-      navigate("/customers");
+      navigate(redirectTo); // Navigate to the appropriate page
     } catch (err) {
       setError("Failed to create customer. Please try again.");
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5, p: 4, bgcolor: "#fff", borderRadius: 2, boxShadow: 3 }}>
+    <Container
+      maxWidth="sm"
+      sx={{
+        mt: 5,
+        p: 4,
+        bgcolor: "#fff",
+        borderRadius: 2,
+        boxShadow: 3,
+      }}
+    >
       <Typography variant="h4" align="center" gutterBottom>
         Create New Customer
       </Typography>
-      
+
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -64,7 +77,7 @@ function NewCustomerPage() {
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
-        
+
         <TextField
           label="Last Name"
           variant="outlined"
@@ -72,7 +85,7 @@ function NewCustomerPage() {
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-        
+
         <TextField
           label="Email"
           type="email"
@@ -81,7 +94,7 @@ function NewCustomerPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        
+
         <TextField
           label="Phone Number"
           type="tel"
@@ -89,15 +102,21 @@ function NewCustomerPage() {
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-        
+
         <TextField
           label="Address"
           variant="outlined"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
-        
-        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 3 }}
+        >
           Save Customer
         </Button>
       </Box>

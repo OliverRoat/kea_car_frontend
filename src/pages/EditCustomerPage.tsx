@@ -26,11 +26,15 @@ import { Customer } from "../hooks/useCustomers";
 
 function EditCustomerPage() {
   const { customers, error, loading, fetchAllCustomers } = useCustomers();
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null
+  );
   const [open, setOpen] = useState<boolean>(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">("success");
+  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+    "success"
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,7 +62,9 @@ function EditCustomerPage() {
 
   const handleUpdateCustomer = async () => {
     if (selectedCustomer) {
-      const originalCustomer = customers.find((c) => c.id === selectedCustomer.id);
+      const originalCustomer = customers.find(
+        (c) => c.id === selectedCustomer.id
+      );
 
       if (!originalCustomer) {
         console.error("Original customer data not found.");
@@ -90,7 +96,10 @@ function EditCustomerPage() {
         showAlert("Customer updated successfully", "success");
       } catch (err) {
         if (axios.isAxiosError(err)) {
-          console.error("Failed to update customer:", err.response?.data || err.message);
+          console.error(
+            "Failed to update customer:",
+            err.response?.data || err.message
+          );
           showAlert("Failed to update customer. Please try again.", "error");
         } else {
           console.error("An unknown error occurred:", err);
@@ -107,7 +116,10 @@ function EditCustomerPage() {
       showAlert("Customer deleted successfully", "success");
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.error("Failed to delete customer:", err.response?.data || err.message);
+        console.error(
+          "Failed to delete customer:",
+          err.response?.data || err.message
+        );
         showAlert("Failed to delete customer. Please try again.", "error");
       } else {
         console.error("An unknown error occurred:", err);
@@ -135,12 +147,18 @@ function EditCustomerPage() {
         <Button
           variant="contained"
           color="success"
-          onClick={() => navigate("/new-customer")}
+          onClick={() =>
+            navigate("/new-customer", {
+              state: { redirectTo: "/edit-customer" },
+            })
+          }
         >
           Create Customer
         </Button>
       </Box>
-      {loading && <CircularProgress sx={{ display: "block", margin: "20px auto" }} />}
+      {loading && (
+        <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
+      )}
       {error && <Typography color="error">{error}</Typography>}
       <List>
         {customers.map((customer) => (
@@ -155,7 +173,10 @@ function EditCustomerPage() {
               mb: 2,
               backgroundColor: "#fff",
               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              "&:hover": { transform: "scale(1.02)", transition: "transform 0.2s" },
+              "&:hover": {
+                transform: "scale(1.02)",
+                transition: "transform 0.2s",
+              },
             }}
           >
             <ListItemText
@@ -203,7 +224,10 @@ function EditCustomerPage() {
         </DialogTitle>
         <DialogContent dividers>
           {selectedCustomer && (
-            <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box
+              component="form"
+              sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+            >
               <TextField
                 label="First Name"
                 name="first_name"
@@ -250,7 +274,11 @@ function EditCustomerPage() {
           <Button onClick={handleClose} color="inherit">
             Cancel
           </Button>
-          <Button onClick={handleUpdateCustomer} variant="contained" color="success">
+          <Button
+            onClick={handleUpdateCustomer}
+            variant="contained"
+            color="success"
+          >
             Save Changes
           </Button>
         </DialogActions>
@@ -263,7 +291,11 @@ function EditCustomerPage() {
         onClose={handleAlertClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert onClose={handleAlertClose} severity={alertSeverity} sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleAlertClose}
+          severity={alertSeverity}
+          sx={{ width: "100%" }}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>
