@@ -15,6 +15,7 @@ import NewCustomersPage from "./pages/NewCustomersPage";
 import CarsListPage from "./pages/CarsListPage";
 import NavBar from "./components/NavBar";
 import EditCustomerPage from "./pages/EditCustomerPage";
+import CarReceiptPage from "./pages/CarReceiptPage"; // Import CarReceiptPage
 import "./App.css";
 
 function App() {
@@ -68,11 +69,13 @@ function App() {
           element={isLoggedIn ? <CarsListPage /> : <Navigate to="/login" />}
         />
         <Route
-        path="/edit-customer"
-        element={isLoggedIn ? <EditCustomerPage /> : <Navigate to="/login" />}
+          path="/edit-customer"
+          element={isLoggedIn ? <EditCustomerPage /> : <Navigate to="/login" />}
         />
-
-
+        <Route
+          path="/car-receipt/:car_id"
+          element={isLoggedIn ? <CarReceiptPage /> : <Navigate to="/login" />}
+        />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

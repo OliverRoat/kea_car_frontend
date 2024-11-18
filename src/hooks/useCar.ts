@@ -32,6 +32,7 @@ export interface Car {
 interface UseCarReturn {
   createCar: (carData: CarData) => Promise<any>;
   fetchAllCars: () => void;
+  fetchCarById: (id: string) => Promise<void>;
   loading: boolean;
   error: string | null;
   car: Car | null;
@@ -77,7 +78,23 @@ const useCar = (): UseCarReturn => {
     }
   }, []);
 
-  return { createCar, fetchAllCars, loading, error, car, allCars };
+  // Function to fetch a single car by ID
+  const fetchCarById = useCallback(async (id: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await apiClient.get<Car>(`/car/${id}`);
+      setCar(response.data);
+      console.log("Fetched car:", response.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Failed to fetch car");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  return { createCar, fetchAllCars, fetchCarById, loading, error, car, allCars };
 };
 
 export default useCar;

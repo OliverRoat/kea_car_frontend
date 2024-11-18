@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useCar from "../hooks/useCar";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -11,27 +11,41 @@ import {
   Typography,
   List,
   ListItem,
+  Button,
 } from "@mui/material";
+import useCar from "../hooks/useCar";
 
-function CarsListPage() {
-  const { allCars, fetchAllCars, loading, error } = useCar();
+function CarReceiptPage() {
+  const { car_id } = useParams<{ car_id: string }>();
+  const { fetchCarById, car, loading, error } = useCar();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAllCars();
-  }, [fetchAllCars]);
+    if (car_id) {
+      fetchCarById(car_id);
+    }
+  }, [car_id, fetchCarById]);
 
-  if (loading)
+  if (loading) {
     return <CircularProgress sx={{ display: "block", margin: "20px auto" }} />;
-  if (error) return <Typography color="error">{error}</Typography>;
+  }
+
+  if (error) {
+    return (
+      <Typography color="error" align="center">
+        {error}
+      </Typography>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        Cars
+        Car Receipt
       </Typography>
-      <Grid container spacing={3}>
-        {allCars.map((car) => (
-          <Grid item xs={12} sm={6} md={4} key={car.id}>
+      {car ? (
+        <Grid container justifyContent="center">
+          <Grid item xs={12} sm={8}>
             <Card sx={{ borderRadius: 2, boxShadow: 3, textAlign: "center" }}>
               <CardMedia
                 component="img"
@@ -164,10 +178,21 @@ function CarsListPage() {
               </CardContent>
             </Card>
           </Grid>
-        ))}
-      </Grid>
+        </Grid>
+      ) : (
+        <Typography align="center">No car found</Typography>
+      )}
+      <Button
+        onClick={() => navigate("/cars")}
+        variant="contained"
+        color="success"
+        fullWidth
+        sx={{ mt: 4 }}
+      >
+        View All Cars
+      </Button>
     </Container>
   );
 }
 
-export default CarsListPage;
+export default CarReceiptPage;

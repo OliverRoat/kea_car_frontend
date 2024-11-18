@@ -53,11 +53,7 @@ function CustomersPage() {
       return;
     }
 
-    const today = new Date();
-    const purchase_deadline = today.toISOString().split("T")[0];
-
     const carData = {
-      purchase_deadline,
       models_id: savedCar.model.id,
       colors_id: savedCar.color.id,
       customers_id: selectedCustomer.id,
@@ -73,7 +69,8 @@ function CustomersPage() {
       sessionStorage.removeItem("savedCar");
       sessionStorage.removeItem("selectedCustomerId");
 
-      navigate("/cars");
+      // Navigate to the receipt page with the newly created car's ID
+      navigate(`/car-receipt/${response.data.id}`);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response) {
