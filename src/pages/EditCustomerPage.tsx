@@ -8,9 +8,7 @@ import {
   Button,
   CircularProgress,
   Container,
-  List,
-  ListItem,
-  ListItemText,
+  Grid,
   Typography,
   Dialog,
   DialogTitle,
@@ -20,6 +18,9 @@ import {
   IconButton,
   Snackbar,
   Alert,
+  Card,
+  CardContent,
+  Stack,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Customer } from "../hooks/useCustomers";
@@ -139,7 +140,7 @@ function EditCustomerPage() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h4" align="center" gutterBottom>
         Customers
       </Typography>
@@ -160,51 +161,51 @@ function EditCustomerPage() {
         <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
       )}
       {error && <Typography color="error">{error}</Typography>}
-      <List>
+      <Grid container spacing={3}>
         {customers.map((customer) => (
-          <ListItem
-            key={customer.id}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              p: 2,
-              borderRadius: 1,
-              border: "1px solid #ddd",
-              mb: 2,
-              backgroundColor: "#fff",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              "&:hover": {
-                transform: "scale(1.02)",
-                transition: "transform 0.2s",
-              },
-            }}
-          >
-            <ListItemText
-              primary={`${customer.first_name} ${customer.last_name}`}
-              secondary={`Email: ${customer.email}`}
-              sx={{ flex: 1 }}
-            />
-            <Box display="flex" gap={1}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => handleEditClick(customer)}
-                sx={{ flexShrink: 0 }}
-              >
-                Edit
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => handleDelete(customer.id)}
-                sx={{ flexShrink: 0 }}
-              >
-                Delete
-              </Button>
-            </Box>
-          </ListItem>
+          <Grid item xs={12} sm={6} md={4} key={customer.id}>
+            <Card
+              sx={{
+                boxShadow: 3,
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: 6,
+                },
+              }}
+            >
+              <CardContent>
+                <Stack spacing={1}>
+                  <Typography variant="h6">
+                    {customer.first_name} {customer.last_name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Email: {customer.email}
+                  </Typography>
+                  <Box display="flex" gap={1} mt={2}>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={() => handleEditClick(customer)}
+                      fullWidth
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => handleDelete(customer.id)}
+                      fullWidth
+                    >
+                      Delete
+                    </Button>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </List>
+      </Grid>
 
       {/* Edit Customer Dialog */}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">

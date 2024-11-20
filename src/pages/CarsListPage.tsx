@@ -11,32 +11,55 @@ import {
   Typography,
   List,
   ListItem,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 function CarsListPage() {
   const { allCars, fetchAllCars, loading, error } = useCar();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     fetchAllCars();
   }, [fetchAllCars]);
 
-  if (loading)
+  if (loading) {
     return <CircularProgress sx={{ display: "block", margin: "20px auto" }} />;
-  if (error) return <Typography color="error">{error}</Typography>;
+  }
+
+  if (error) {
+    return (
+      <Typography color="error" align="center">
+        {error}
+      </Typography>
+    );
+  }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container maxWidth="lg" sx={{ mt: 4, padding: isMobile ? 2 : 4 }}>
+      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
         Cars
       </Typography>
       <Grid container spacing={3}>
         {allCars.map((car) => (
           <Grid item xs={12} sm={6} md={4} key={car.id}>
-            <Card sx={{ borderRadius: 2, boxShadow: 3, textAlign: "center" }}>
+            <Card
+              sx={{
+                borderRadius: 2,
+                boxShadow: 3,
+                textAlign: "center",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: theme.shadows[6],
+                },
+              }}
+            >
               <CardMedia
                 component="img"
                 sx={{
-                  height: { xs: 150, md: 200 },
+                  height: isMobile ? 150 : 200,
                   objectFit: "contain",
                   marginTop: 1,
                 }}
@@ -51,6 +74,7 @@ function CarsListPage() {
                   Price: ${car.model.price.toFixed(2)}
                 </Typography>
 
+                {/* Color Section */}
                 <Box
                   sx={{
                     mt: 2,
@@ -66,6 +90,7 @@ function CarsListPage() {
                   </Typography>
                 </Box>
 
+                {/* Accessories Section */}
                 <Box
                   sx={{
                     mt: 2,
@@ -87,6 +112,7 @@ function CarsListPage() {
                   </List>
                 </Box>
 
+                {/* Insurances Section */}
                 <Box
                   sx={{
                     mt: 2,
@@ -108,6 +134,7 @@ function CarsListPage() {
                   </List>
                 </Box>
 
+                {/* Customer Section */}
                 <Box
                   sx={{
                     mt: 2,
@@ -132,6 +159,7 @@ function CarsListPage() {
                   </Typography>
                 </Box>
 
+                {/* Salesperson Section */}
                 <Box
                   sx={{
                     mt: 2,
@@ -150,6 +178,7 @@ function CarsListPage() {
                   </Typography>
                 </Box>
 
+                {/* Purchase Deadline and Total Price */}
                 <Box sx={{ mt: 2 }}>
                   <Typography variant="body2">
                     Purchase Deadline:{" "}

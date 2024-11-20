@@ -10,11 +10,12 @@ import {
   Box,
   Button,
   CircularProgress,
-  List,
-  ListItem,
   Typography,
+  Grid,
   Stack,
   IconButton,
+  Card,
+  CardContent,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -85,7 +86,9 @@ function CustomersPage() {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 3, position: "relative" }}>
+    <Box
+      sx={{ maxWidth: "1200px", mx: "auto", mt: 4, p: 3, position: "relative" }}
+    >
       {/* Back Button */}
       <IconButton
         onClick={() => navigate(-1)}
@@ -111,6 +114,7 @@ function CustomersPage() {
       <Typography variant="h4" align="center" gutterBottom>
         Select a Customer
       </Typography>
+
       {loading && (
         <Box display="flex" justifyContent="center" mt={2}>
           <CircularProgress />
@@ -121,44 +125,45 @@ function CustomersPage() {
           Error loading customers: {error}
         </Typography>
       )}
-      <List>
+
+      <Grid container spacing={3}>
         {customers.map((customer) => (
-          <ListItem
-            key={customer.id}
-            component="div"
-            onClick={() => handleCustomerSelect(customer.id)}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: 2,
-              borderRadius: 1,
-              border: "1px solid #ddd",
-              mb: 1,
-              cursor: "pointer",
-              backgroundColor: "#fff",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              "&:hover": {
-                transform: "scale(1.03)",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              },
-            }}
-          >
-            <Stack direction="row" spacing={2}>
-              <Typography variant="body1">
-                {customer.first_name} {customer.last_name}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {customer.email}
-              </Typography>
-            </Stack>
-          </ListItem>
+          <Grid item xs={12} sm={6} md={4} key={customer.id}>
+            <Card
+              sx={{
+                cursor: "pointer",
+                boxShadow: 3,
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: 6,
+                },
+              }}
+              onClick={() => handleCustomerSelect(customer.id)}
+            >
+              <CardContent>
+                <Stack direction="column" spacing={1} alignItems="center">
+                  <Typography variant="h6">
+                    {customer.first_name} {customer.last_name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Email: {customer.email}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Phone: {customer.phone_number}
+                  </Typography>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </List>
+      </Grid>
+
       <Button
         variant="contained"
         color="success"
         fullWidth
-        sx={{ mt: 3 }}
+        sx={{ mt: 4 }}
         onClick={() =>
           navigate("/new-customer", { state: { redirectTo: "/customers" } })
         }

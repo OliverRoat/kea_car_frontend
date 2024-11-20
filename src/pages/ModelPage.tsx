@@ -8,6 +8,8 @@ import {
   CardMedia,
   CardContent,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useModels, { Color } from "../hooks/useModels";
@@ -18,10 +20,12 @@ function ModelPage() {
   const brandId = location.state?.id;
 
   const navigate = useNavigate();
-
   const { models, error: modelsError } = useModels({
     brandId: brandId || null,
   });
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   if (modelsError) {
     return <Box color="red">Error fetching models: {modelsError}</Box>;
@@ -42,16 +46,22 @@ function ModelPage() {
   };
 
   return (
-    <Box p={3} position="relative">
+    <Box
+      p={3}
+      sx={{
+        maxWidth: "1200px",
+        margin: "0 auto", // Center content
+        position: "relative",
+      }}
+    >
+      {/* Back Button */}
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate(-1)}
         sx={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          mt: 2,
-          ml: 2,
+          top: 16,
+          left: 16,
           backgroundColor: "green",
           color: "white",
           "&:hover": {
@@ -63,24 +73,50 @@ function ModelPage() {
         Back
       </Button>
 
-      <Typography variant="h4" align="center" gutterBottom>
+      {/* Title */}
+      <Typography
+        variant={isMobile ? "h5" : "h4"} // Responsive font size
+        align="center"
+        gutterBottom
+      >
         {brand
           ? `${brand.charAt(0).toUpperCase()}${brand.slice(1)}`
           : "Unknown"}{" "}
         Models
       </Typography>
 
-      <Grid container spacing={3} justifyContent="center">
+      {/* Models Grid */}
+      <Grid
+        container
+        spacing={2} // Adjust spacing
+        justifyContent="center"
+        sx={{ padding: isMobile ? 1 : 3 }} // Adjust padding
+      >
         {models.map((model) => (
-          <Grid item xs={12} sm={6} md={4} key={model.id}>
+          <Grid
+            item
+            xs={12} // Full width on mobile
+            sm={6} // Two columns on tablets
+            md={4} // Three columns on small desktops
+            lg={3} // Four columns on larger desktops
+            key={model.id}
+          >
             <Card
               onClick={() => handleModelSelect(model)}
-              sx={{ cursor: "pointer" }}
+              sx={{
+                cursor: "pointer",
+                borderRadius: "10px",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)", // Slight zoom on hover
+                  boxShadow: theme.shadows[6],
+                },
+              }}
             >
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="140"
+                  height={isMobile ? "100" : "140"} // Adjust height for mobile
                   image={model.image_url}
                   alt={model.name}
                   sx={{
@@ -90,7 +126,13 @@ function ModelPage() {
                   }}
                 />
                 <CardContent>
-                  <Typography variant="h6" align="center">
+                  <Typography
+                    variant="h6"
+                    align="center"
+                    sx={{
+                      fontSize: isMobile ? "1rem" : "1.25rem", // Responsive font size
+                    }}
+                  >
                     {model.name}
                   </Typography>
                   <Typography

@@ -8,6 +8,8 @@ import {
   TextField,
   Typography,
   Alert,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 function NewCustomerPage() {
@@ -19,6 +21,8 @@ function NewCustomerPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   // Determine where to navigate after creating a customer
   const redirectTo = location.state?.redirectTo || "/customers";
@@ -48,9 +52,10 @@ function NewCustomerPage() {
         bgcolor: "#fff",
         borderRadius: 2,
         boxShadow: 3,
+        textAlign: "center",
       }}
     >
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
         Create New Customer
       </Typography>
 
@@ -113,9 +118,14 @@ function NewCustomerPage() {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           fullWidth
-          sx={{ mt: 3 }}
+          sx={{
+            mt: 3,
+            backgroundColor: "green",
+            "&:hover": {
+              backgroundColor: "darkgreen",
+            },
+          }}
         >
           Save Customer
         </Button>

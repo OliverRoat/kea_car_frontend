@@ -7,6 +7,8 @@ import {
   CardActionArea,
   CardContent,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -23,6 +25,8 @@ function CarColorPage() {
   const location = useLocation();
   const { brand, model, colors } = location.state || {};
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleColorSelect = (color: Color) => {
     navigate(
@@ -34,16 +38,22 @@ function CarColorPage() {
   };
 
   return (
-    <Box p={3} position="relative">
+    <Box
+      p={3}
+      sx={{
+        maxWidth: "1200px",
+        margin: "0 auto", // Center content
+        position: "relative",
+      }}
+    >
+      {/* Back Button */}
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate(-1)}
         sx={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          mt: 2,
-          ml: 2,
+          top: 16,
+          left: 16,
           backgroundColor: "green",
           color: "white",
           "&:hover": {
@@ -55,21 +65,48 @@ function CarColorPage() {
         Back
       </Button>
 
-      <Typography variant="h4" align="center" gutterBottom>
+      {/* Title */}
+      <Typography
+        variant={isMobile ? "h5" : "h4"} // Responsive font size
+        align="center"
+        gutterBottom
+      >
         Select a Color for {model.name}
       </Typography>
-      <Grid container spacing={3} justifyContent="center">
+
+      {/* Colors Grid */}
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center"
+        sx={{ padding: isMobile ? 1 : 3 }} // Adjust padding
+      >
         {colors.map((color: Color) => (
-          <Grid item xs={12} sm={6} md={4} key={color.id}>
+          <Grid
+            item
+            xs={12} // Full width on mobile
+            sm={6} // Two columns on tablets
+            md={4} // Three columns on small desktops
+            lg={3} // Four columns on larger desktops
+            key={color.id}
+          >
             <Card
-              sx={{ cursor: "pointer" }}
+              sx={{
+                cursor: "pointer",
+                borderRadius: "10px",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)", // Slight zoom on hover
+                  boxShadow: theme.shadows[6],
+                },
+              }}
               onClick={() => handleColorSelect(color)}
             >
               <CardActionArea>
                 <Box
                   sx={{
-                    width: 100,
-                    height: 100,
+                    width: isMobile ? 80 : 100, // Adjust size for mobile
+                    height: isMobile ? 80 : 100,
                     borderRadius: "50%",
                     backgroundColor: `rgb(${color.red_value}, ${color.green_value}, ${color.blue_value})`,
                     mx: "auto",
@@ -78,7 +115,13 @@ function CarColorPage() {
                   }}
                 />
                 <CardContent>
-                  <Typography variant="h6" align="center">
+                  <Typography
+                    variant="h6"
+                    align="center"
+                    sx={{
+                      fontSize: isMobile ? "1rem" : "1.25rem", // Responsive font size
+                    }}
+                  >
                     {color.name}
                   </Typography>
                   <Typography

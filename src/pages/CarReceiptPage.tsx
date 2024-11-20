@@ -12,6 +12,8 @@ import {
   List,
   ListItem,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import useCar from "../hooks/useCar";
 
@@ -19,6 +21,9 @@ function CarReceiptPage() {
   const { car_id } = useParams<{ car_id: string }>();
   const { fetchCarById, car, loading, error } = useCar();
   const navigate = useNavigate();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     if (car_id) {
@@ -39,20 +44,33 @@ function CarReceiptPage() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container
+      maxWidth="lg"
+      sx={{
+        mt: 4,
+        padding: isMobile ? 2 : 4,
+      }}
+    >
+      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
         Car Receipt
       </Typography>
       {car ? (
         <Grid container justifyContent="center">
-          <Grid item xs={12} sm={8}>
-            <Card sx={{ borderRadius: 2, boxShadow: 3, textAlign: "center" }}>
+          <Grid item xs={12} sm={10} md={8}>
+            <Card
+              sx={{
+                borderRadius: 2,
+                boxShadow: 3,
+                textAlign: "center",
+                padding: isMobile ? 2 : 4,
+              }}
+            >
               <CardMedia
                 component="img"
                 sx={{
-                  height: { xs: 150, md: 200 },
+                  height: isMobile ? 150 : 200,
                   objectFit: "contain",
-                  marginTop: 1,
+                  marginBottom: 2,
                 }}
                 image={car.model.image_url}
                 alt={car.model.name}

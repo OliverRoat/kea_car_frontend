@@ -7,6 +7,8 @@ import {
   Typography,
   CircularProgress,
   Stack,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import useLogin from "../hooks/useLogin";
 
@@ -19,6 +21,8 @@ function LoginPage({
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleLogin = async () => {
     try {
@@ -33,16 +37,17 @@ function LoginPage({
   return (
     <Box
       sx={{
-        maxWidth: 600, // Increase maximum width for a larger box
+        maxWidth: 600,
         width: "100%",
-        margin: "80px auto", // Add more margin to center the box lower
-        padding: 4, // Increase padding for a more spacious look
+        margin: "80px auto",
+        padding: 4,
         borderRadius: 3,
         backgroundColor: "#FFFFFF",
         boxShadow: 5,
+        textAlign: "center",
       }}
     >
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
         Login
       </Typography>
       <Stack spacing={3}>
@@ -66,13 +71,19 @@ function LoginPage({
         />
         <Button
           variant="contained"
-          color="primary"
           onClick={handleLogin}
           disabled={loading}
           fullWidth
-          sx={{ padding: "12px 0", fontSize: "1rem" }} // Larger button
+          sx={{
+            padding: "12px 0",
+            fontSize: "1rem",
+            backgroundColor: "green",
+            "&:hover": {
+              backgroundColor: "darkgreen",
+            },
+          }}
         >
-          {loading ? <CircularProgress size={24} /> : "Login"}
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
         </Button>
         {error && (
           <Typography color="error" align="center">
