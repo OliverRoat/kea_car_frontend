@@ -19,10 +19,6 @@ import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import { styled } from "@mui/material/styles";
 import { useThemeToggle } from "../styles/themeContext";
 
-interface NavBarProps {
-  setIsLoggedIn: (loggedIn: boolean) => void;
-}
-
 const ThemeToggleButton = styled(Box)(({ theme }) => ({
   width: 60,
   height: 30,
@@ -53,7 +49,7 @@ const ToggleThumb = styled(Box)(({ theme }) => ({
   transition: "left 0.3s ease",
 }));
 
-const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { toggleTheme, isDarkMode } = useThemeToggle();
@@ -62,7 +58,6 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
   const handleLogout = () => {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("salesPerson");
-    setIsLoggedIn(false);
     navigate("/login");
   };
 

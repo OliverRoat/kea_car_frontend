@@ -11,6 +11,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import RestrictedContent from "../components/RestrictedContent";
 
 interface Color {
   id: string;
@@ -38,106 +39,110 @@ function CarColorPage() {
   };
 
   return (
-    <Box
-      p={3}
-      sx={{
-        maxWidth: "1200px",
-        margin: "0 auto", // Center content
-        position: "relative",
-      }}
-    >
-      {/* Back Button */}
-      <Button
-        startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(-1)}
-        sx={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          backgroundColor: "green",
-          color: "white",
-          "&:hover": {
-            backgroundColor: "darkgreen",
-          },
-        }}
-        variant="contained"
-      >
-        Back
-      </Button>
-
-      {/* Title */}
-      <Typography
-        variant={isMobile ? "h5" : "h4"} // Responsive font size
-        align="center"
-        gutterBottom
-      >
-        Select a Color for {model.name}
-      </Typography>
-
-      {/* Colors Grid */}
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        sx={{ padding: isMobile ? 1 : 3 }} // Adjust padding
-      >
-        {colors.map((color: Color) => (
-          <Grid
-            item
-            xs={12} // Full width on mobile
-            sm={6} // Two columns on tablets
-            md={4} // Three columns on small desktops
-            lg={3} // Four columns on larger desktops
-            key={color.id}
+    <RestrictedContent
+      children={
+        <Box
+          p={3}
+          sx={{
+            maxWidth: "1200px",
+            margin: "0 auto", // Center content
+            position: "relative",
+          }}
+        >
+          {/* Back Button */}
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate(-1)}
+            sx={{
+              position: "absolute",
+              top: 16,
+              left: 16,
+              backgroundColor: "green",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "darkgreen",
+              },
+            }}
+            variant="contained"
           >
-            <Card
-              sx={{
-                cursor: "pointer",
-                borderRadius: "10px",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.05)", // Slight zoom on hover
-                  boxShadow: theme.shadows[6],
-                },
-              }}
-              onClick={() => handleColorSelect(color)}
-            >
-              <CardActionArea>
-                <Box
+            Back
+          </Button>
+
+          {/* Title */}
+          <Typography
+            variant={isMobile ? "h5" : "h4"} // Responsive font size
+            align="center"
+            gutterBottom
+          >
+            Select a Color for {model.name}
+          </Typography>
+
+          {/* Colors Grid */}
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            sx={{ padding: isMobile ? 1 : 3 }} // Adjust padding
+          >
+            {colors.map((color: Color) => (
+              <Grid
+                item
+                xs={12} // Full width on mobile
+                sm={6} // Two columns on tablets
+                md={4} // Three columns on small desktops
+                lg={3} // Four columns on larger desktops
+                key={color.id}
+              >
+                <Card
                   sx={{
-                    width: isMobile ? 80 : 100, // Adjust size for mobile
-                    height: isMobile ? 80 : 100,
-                    borderRadius: "50%",
-                    backgroundColor: `rgb(${color.red_value}, ${color.green_value}, ${color.blue_value})`,
-                    mx: "auto",
-                    mt: 2,
-                    border: "3px solid #ddd",
+                    cursor: "pointer",
+                    borderRadius: "10px",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.05)", // Slight zoom on hover
+                      boxShadow: theme.shadows[6],
+                    },
                   }}
-                />
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    align="center"
-                    sx={{
-                      fontSize: isMobile ? "1rem" : "1.25rem", // Responsive font size
-                    }}
-                  >
-                    {color.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    align="center"
-                  >
-                    ${color.price}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+                  onClick={() => handleColorSelect(color)}
+                >
+                  <CardActionArea>
+                    <Box
+                      sx={{
+                        width: isMobile ? 80 : 100, // Adjust size for mobile
+                        height: isMobile ? 80 : 100,
+                        borderRadius: "50%",
+                        backgroundColor: `rgb(${color.red_value}, ${color.green_value}, ${color.blue_value})`,
+                        mx: "auto",
+                        mt: 2,
+                        border: "3px solid #ddd",
+                      }}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="h6"
+                        align="center"
+                        sx={{
+                          fontSize: isMobile ? "1rem" : "1.25rem", // Responsive font size
+                        }}
+                      >
+                        {color.name}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        align="center"
+                      >
+                        ${color.price}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-    </Box>
+        </Box>
+      }
+    />
   );
 }
 

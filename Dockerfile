@@ -18,6 +18,7 @@ COPY . .
 
 # Build the static files
 RUN npm run build
+RUN npm run sitemap
 
 # Expose the port your app runs on (if needed)
 EXPOSE 5174

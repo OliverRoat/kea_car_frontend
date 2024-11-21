@@ -17,6 +17,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAccessories from "../hooks/useAccessories";
 import useInsurances from "../hooks/useInsurances";
+import RestrictedContent from "../components/RestrictedContent";
 
 function CarAccessoriesPage() {
   const {
@@ -90,121 +91,63 @@ function CarAccessoriesPage() {
   };
 
   return (
-    <Box
-      p={3}
-      sx={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        position: "relative",
-      }}
-    >
-      {/* Back Button */}
-      <Button
-        startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(-1)}
-        sx={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          backgroundColor: "green",
-          color: "white",
-          "&:hover": {
-            backgroundColor: "darkgreen",
-          },
-        }}
-        variant="contained"
-      >
-        Back
-      </Button>
+    <RestrictedContent
+      children={
+        <Box
+          p={3}
+          sx={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            position: "relative",
+          }}
+        >
+          {/* Back Button */}
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate(-1)}
+            sx={{
+              position: "absolute",
+              top: 16,
+              left: 16,
+              backgroundColor: "green",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "darkgreen",
+              },
+            }}
+            variant="contained"
+          >
+            Back
+          </Button>
 
-      {/* Title */}
-      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
-        Select Car Accessories and Insurance
-      </Typography>
-
-      {/* Accessories Section */}
-      <Card variant="outlined" sx={{ p: 2, mb: 3 }}>
-        <Typography variant="h5" gutterBottom>
-          Accessories
-        </Typography>
-        {accessoriesLoading ? (
-          <CircularProgress />
-        ) : accessoriesError ? (
-          <Typography color="error">
-            Error loading accessories: {accessoriesError}
+          {/* Title */}
+          <Typography
+            variant={isMobile ? "h5" : "h4"}
+            align="center"
+            gutterBottom
+          >
+            Select Car Accessories and Insurance
           </Typography>
-        ) : (
-          <Grid container spacing={2}>
-            {accessories.map((accessory) => (
-              <Grid item xs={12} sm={6} md={4} key={accessory.id}>
-                <Box display="flex" alignItems="center">
-                  <Checkbox
-                    checked={selectedAccessories.includes(accessory.id)}
-                    onChange={() => handleAccessoryChange(accessory.id)}
-                    sx={{
-                      color: "green",
-                      "&.Mui-checked": {
-                        color: "green",
-                      },
-                    }}
-                  />
-                  <Typography>
-                    {accessory.name} - ${accessory.price}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Card>
 
-      {/* Insurance Section */}
-      <Card variant="outlined" sx={{ p: 2 }}>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Typography variant="h5">Insurance</Typography>
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography
-              color={!showInsurances ? "text.primary" : "text.secondary"}
-            >
-              NO
+          {/* Accessories Section */}
+          <Card variant="outlined" sx={{ p: 2, mb: 3 }}>
+            <Typography variant="h5" gutterBottom>
+              Accessories
             </Typography>
-            <Switch
-              checked={showInsurances}
-              onChange={() => setShowInsurances(!showInsurances)}
-              inputProps={{ "aria-label": "Toggle insurance selection" }}
-              sx={{
-                "& .MuiSwitch-switchBase.Mui-checked": {
-                  color: "green",
-                },
-                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                  backgroundColor: "green",
-                },
-              }}
-            />
-            <Typography
-              color={showInsurances ? "text.primary" : "text.secondary"}
-            >
-              YES
-            </Typography>
-          </Box>
-        </Box>
-        {showInsurances && (
-          <>
-            <Divider sx={{ my: 2 }} />
-            {insurancesLoading ? (
+            {accessoriesLoading ? (
               <CircularProgress />
-            ) : insurancesError ? (
+            ) : accessoriesError ? (
               <Typography color="error">
-                Error loading insurances: {insurancesError}
+                Error loading accessories: {accessoriesError}
               </Typography>
             ) : (
               <Grid container spacing={2}>
-                {insurances.map((insurance) => (
-                  <Grid item xs={12} sm={6} md={4} key={insurance.id}>
+                {accessories.map((accessory) => (
+                  <Grid item xs={12} sm={6} md={4} key={accessory.id}>
                     <Box display="flex" alignItems="center">
                       <Checkbox
-                        checked={selectedInsurances.includes(insurance.id)}
-                        onChange={() => handleInsuranceChange(insurance.id)}
+                        checked={selectedAccessories.includes(accessory.id)}
+                        onChange={() => handleAccessoryChange(accessory.id)}
                         sx={{
                           color: "green",
                           "&.Mui-checked": {
@@ -213,28 +156,98 @@ function CarAccessoriesPage() {
                         }}
                       />
                       <Typography>
-                        {insurance.name} - ${insurance.price}
+                        {accessory.name} - ${accessory.price}
                       </Typography>
                     </Box>
                   </Grid>
                 ))}
               </Grid>
             )}
-          </>
-        )}
-      </Card>
+          </Card>
 
-      {/* Save Button */}
-      <Box mt={4} textAlign="center">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={saveCarConfiguration}
-        >
-          Save Car Configuration
-        </Button>
-      </Box>
-    </Box>
+          {/* Insurance Section */}
+          <Card variant="outlined" sx={{ p: 2 }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography variant="h5">Insurance</Typography>
+              <Box display="flex" alignItems="center" gap={1}>
+                <Typography
+                  color={!showInsurances ? "text.primary" : "text.secondary"}
+                >
+                  NO
+                </Typography>
+                <Switch
+                  checked={showInsurances}
+                  onChange={() => setShowInsurances(!showInsurances)}
+                  inputProps={{ "aria-label": "Toggle insurance selection" }}
+                  sx={{
+                    "& .MuiSwitch-switchBase.Mui-checked": {
+                      color: "green",
+                    },
+                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                      backgroundColor: "green",
+                    },
+                  }}
+                />
+                <Typography
+                  color={showInsurances ? "text.primary" : "text.secondary"}
+                >
+                  YES
+                </Typography>
+              </Box>
+            </Box>
+            {showInsurances && (
+              <>
+                <Divider sx={{ my: 2 }} />
+                {insurancesLoading ? (
+                  <CircularProgress />
+                ) : insurancesError ? (
+                  <Typography color="error">
+                    Error loading insurances: {insurancesError}
+                  </Typography>
+                ) : (
+                  <Grid container spacing={2}>
+                    {insurances.map((insurance) => (
+                      <Grid item xs={12} sm={6} md={4} key={insurance.id}>
+                        <Box display="flex" alignItems="center">
+                          <Checkbox
+                            checked={selectedInsurances.includes(insurance.id)}
+                            onChange={() => handleInsuranceChange(insurance.id)}
+                            sx={{
+                              color: "green",
+                              "&.Mui-checked": {
+                                color: "green",
+                              },
+                            }}
+                          />
+                          <Typography>
+                            {insurance.name} - ${insurance.price}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+              </>
+            )}
+          </Card>
+
+          {/* Save Button */}
+          <Box mt={4} textAlign="center">
+            <Button
+              variant="contained"
+              color="success"
+              onClick={saveCarConfiguration}
+            >
+              Save Car Configuration
+            </Button>
+          </Box>
+        </Box>
+      }
+    />
   );
 }
 

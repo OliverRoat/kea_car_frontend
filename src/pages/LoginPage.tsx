@@ -12,11 +12,7 @@ import {
 } from "@mui/material";
 import useLogin from "../hooks/useLogin";
 
-function LoginPage({
-  setIsLoggedIn,
-}: {
-  setIsLoggedIn: (loggedIn: boolean) => void;
-}) {
+function LoginPage() {
   const { login, error, loading } = useLogin();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -27,11 +23,8 @@ function LoginPage({
   const handleLogin = async () => {
     try {
       await login(email, password);
-      setIsLoggedIn(true);
       navigate("/brands");
-    } catch {
-      // Optionally handle errors
-    }
+    } catch {}
   };
 
   return (
