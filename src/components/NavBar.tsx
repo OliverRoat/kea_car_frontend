@@ -11,16 +11,53 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
+import { styled } from "@mui/material/styles";
+import { useThemeToggle } from "../styles/themeContext";
 
 interface NavBarProps {
   setIsLoggedIn: (loggedIn: boolean) => void;
 }
 
+const ThemeToggleButton = styled(Box)(({ theme }) => ({
+  width: 60,
+  height: 30,
+  backgroundColor: theme.palette.background.default,
+  borderRadius: 30,
+  position: "relative",
+  border: `2px solid ${theme.palette.divider}`,
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "0 5px",
+  boxShadow: theme.shadows[1],
+  transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+  "&:hover": {
+    boxShadow: theme.shadows[4],
+  },
+}));
+
+const ToggleThumb = styled(Box)(({ theme }) => ({
+  width: 24,
+  height: 24,
+  backgroundColor: theme.palette.primary.main,
+  borderRadius: "50%",
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  transition: "left 0.3s ease",
+}));
+
 const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { toggleTheme, isDarkMode } = useThemeToggle();
+  const theme = useTheme();
 
   const handleLogout = () => {
     sessionStorage.removeItem("access_token");
@@ -36,19 +73,21 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
   const navItems = [
     { label: "Customers", onClick: () => navigate("/edit-customer") },
     { label: "Cars", onClick: () => navigate("/cars") },
-    { label: "Logout", onClick: handleLogout, isLogout: true },
   ];
 
   return (
     <>
       <AppBar
-        position="sticky"
+        position="fixed"
         sx={{
-          backgroundColor: "#E6EBE0", // Matches the page background
-          borderBottom: "2px solid #ccc",
-          padding: "10px 30px",
-          width: "100%",
-          boxShadow: "none",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? theme.palette.background.paper
+              : theme.palette.background.default,
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          padding: 0,
+          backdropFilter: "blur(10px)",
         }}
       >
         <Toolbar
@@ -56,30 +95,29 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
             minHeight: "80px",
             display: "flex",
             justifyContent: "space-between",
-            color: "#333",
+            alignItems: "center",
           }}
         >
-          <Box display="flex" alignItems="center">
-            {/* Logo acting as Home button */}
-            <Box
-              component="img"
-              src="https://keacar.ams3.cdn.digitaloceanspaces.com/KeaCarLogo.png"
-              alt="KeaCar Logo"
-              onClick={() => navigate("/brands")}
-              sx={{
-                height: "50px",
-                width: "auto",
-                cursor: "pointer",
-                mr: 3,
-              }}
-            />
-          </Box>
+          {/* Left Section: Logo */}
+          <Box
+            component="img"
+            src="https://keacar.ams3.cdn.digitaloceanspaces.com/KeaCarLogo.png"
+            alt="KeaCar Logo"
+            onClick={() => navigate("/brands")}
+            sx={{
+              height: "50px",
+              width: "auto",
+              cursor: "pointer",
+            }}
+          />
 
-          {/* Desktop Navigation */}
+          {/* Center Section: Navigation */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
               alignItems: "center",
+              flexGrow: 1, // Push logout and theme toggle to the right
+              justifyContent: "center",
             }}
           >
             {navItems.map((item, index) => (
@@ -87,15 +125,11 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
                 key={index}
                 onClick={item.onClick}
                 sx={{
-                  color: item.isLogout ? "#fff" : "#333",
+                  color: theme.palette.text.primary,
                   fontSize: "16px",
-                  fontWeight: item.isLogout ? "bold" : "normal",
-                  backgroundColor: item.isLogout ? "green" : "transparent",
+                  fontWeight: "normal",
+                  backgroundColor: "transparent",
                   borderRadius: "6px",
-                  padding: item.isLogout ? "6px 12px" : "inherit",
-                  "&:hover": {
-                    backgroundColor: item.isLogout ? "#006400" : "transparent",
-                  },
                   mx: 1,
                 }}
               >
@@ -104,10 +138,56 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
             ))}
           </Box>
 
+          {/* Right Section: Theme Toggle and Logout */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <ThemeToggleButton
+              onClick={toggleTheme}
+              sx={{
+                backgroundColor: isDarkMode
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <WbSunnyIcon
+                sx={{
+                  fontSize: 20,
+                  color: isDarkMode ? "text.secondary" : "gold",
+                }}
+              />
+              <NightlightRoundIcon
+                sx={{
+                  fontSize: 20,
+                  color: isDarkMode ? "purple" : "text.secondary",
+                }}
+              />
+              <ToggleThumb
+                sx={{
+                  left: isDarkMode ? 32 : 4,
+                }}
+              />
+            </ThemeToggleButton>
+
+            <Button
+              onClick={handleLogout}
+              sx={{
+                color: "#fff",
+                fontSize: "16px",
+                fontWeight: "bold",
+                backgroundColor: "green",
+                borderRadius: "6px",
+                padding: "6px 12px",
+                "&:hover": {
+                  backgroundColor: "#006400",
+                },
+              }}
+            >
+              Logout
+            </Button>
+          </Box>
+
           {/* Mobile Navigation - Burger Menu */}
           <IconButton
             edge="end"
-            color="inherit"
             sx={{ display: { xs: "block", md: "none" } }}
             onClick={() => toggleDrawer(true)}
           >
@@ -129,16 +209,21 @@ const NavBar: React.FC<NavBarProps> = ({ setIsLoggedIn }) => {
           onKeyDown={() => toggleDrawer(false)}
         >
           <List>
-            {navItems.map((item, index) => (
-              <ListItem key={index} disablePadding>
-                <ListItemButton onClick={item.onClick}>
-                  <ListItemText primary={item.label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {navItems
+              .concat({ label: "Logout", onClick: handleLogout })
+              .map((item, index) => (
+                <ListItem key={index} disablePadding>
+                  <ListItemButton onClick={item.onClick}>
+                    <ListItemText primary={item.label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
           </List>
         </Box>
       </Drawer>
+
+      {/* Spacer for content below NavBar */}
+      <Box sx={{ height: "80px" }} />
     </>
   );
 };

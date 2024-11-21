@@ -74,113 +74,53 @@ function CarsListPage() {
                   Price: ${car.model.price.toFixed(2)}
                 </Typography>
 
-                {/* Color Section */}
-                <Box
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: 1,
-                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <Typography variant="subtitle1">Color</Typography>
-                  <Typography variant="body2">
-                    {car.color.name} - ${car.color.price.toFixed(2)}
-                  </Typography>
-                </Box>
+                {[
+                  {
+                    title: "Color",
+                    content: `${car.color.name} - $${car.color.price.toFixed(
+                      2
+                    )}`,
+                  },
+                  {
+                    title: "Accessories",
+                    content: car.accessories
+                      .map((acc) => `${acc.name} - $${acc.price.toFixed(2)}`)
+                      .join(", "),
+                  },
+                  {
+                    title: "Insurances",
+                    content: car.insurances
+                      .map((ins) => `${ins.name} - $${ins.price.toFixed(2)}`)
+                      .join(", "),
+                  },
+                  {
+                    title: "Customer",
+                    content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number}, Address: ${car.customer.address}`,
+                  },
+                  {
+                    title: "Salesperson",
+                    content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
+                  },
+                ].map(({ title, content }) => (
+                  <Box
+                    key={title}
+                    sx={{
+                      mt: 2,
+                      p: 2,
+                      backgroundColor: theme.palette.background.paper,
+                      borderRadius: 1,
+                      boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <Typography variant="subtitle1">{title}</Typography>
+                    <Typography variant="body2" color="text.primary">
+                      {content}
+                    </Typography>
+                  </Box>
+                ))}
 
-                {/* Accessories Section */}
-                <Box
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: 1,
-                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <Typography variant="subtitle1">Accessories</Typography>
-                  <List dense>
-                    {car.accessories.map((acc) => (
-                      <ListItem key={acc.id} sx={{ justifyContent: "center" }}>
-                        <Typography variant="body2">
-                          {acc.name} - ${acc.price.toFixed(2)}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Box>
-
-                {/* Insurances Section */}
-                <Box
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: 1,
-                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <Typography variant="subtitle1">Insurances</Typography>
-                  <List dense>
-                    {car.insurances.map((ins) => (
-                      <ListItem key={ins.id} sx={{ justifyContent: "center" }}>
-                        <Typography variant="body2">
-                          {ins.name} - ${ins.price.toFixed(2)}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Box>
-
-                {/* Customer Section */}
-                <Box
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: 1,
-                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <Typography variant="subtitle1">Customer</Typography>
-                  <Typography variant="body2">
-                    {car.customer.first_name} {car.customer.last_name}
-                  </Typography>
-                  <Typography variant="body2">
-                    Email: {car.customer.email}
-                  </Typography>
-                  <Typography variant="body2">
-                    Phone: {car.customer.phone_number}
-                  </Typography>
-                  <Typography variant="body2">
-                    Address: {car.customer.address}
-                  </Typography>
-                </Box>
-
-                {/* Salesperson Section */}
-                <Box
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: 1,
-                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <Typography variant="subtitle1">Salesperson</Typography>
-                  <Typography variant="body2">
-                    {car.sales_person.first_name} {car.sales_person.last_name}
-                  </Typography>
-                  <Typography variant="body2">
-                    Email: {car.sales_person.email}
-                  </Typography>
-                </Box>
-
-                {/* Purchase Deadline and Total Price */}
                 <Box sx={{ mt: 2 }}>
-                  <Typography variant="body2">
+                  <Typography variant="body2" color="text.primary">
                     Purchase Deadline:{" "}
                     {car.purchase_deadline
                       ? new Date(car.purchase_deadline).toLocaleDateString()
