@@ -84,37 +84,38 @@ function CarsListPage() {
                     {[
                       {
                         title: "Color",
+                        key: car.color.id,
                         content: `${
                           car.color.name
                         } - $${car.color.price.toFixed(2)}`,
                       },
                       {
                         title: "Accessories",
-                        content: car.accessories
-                          .map(
-                            (acc) => `${acc.name} - $${acc.price.toFixed(2)}`
-                          )
-                          .join(", "),
+                        key: car.accessories.length > 0 ? car.accessories.map((acc) => acc.id).join(",") : "no-accessories",
+                        content: car.accessories.length > 0
+                          ? car.accessories.map((acc) => `${acc.name} - $${acc.price.toFixed(2)}`).join(", ")
+                          : "No accessories",
                       },
                       {
                         title: "Insurances",
-                        content: car.insurances
-                          .map(
-                            (ins) => `${ins.name} - $${ins.price.toFixed(2)}`
-                          )
-                          .join(", "),
+                        key: car.insurances.length > 0 ? car.insurances.map((ins) => ins.id).join(",") : "no-insurances",
+                        content: car.insurances.length > 0
+                          ? car.insurances.map((ins) => `${ins.name} - $${ins.price.toFixed(2)}`).join(", ")
+                          : "No insurances",
                       },
                       {
                         title: "Customer",
+                        key: car.customer.id,
                         content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number}, Address: ${car.customer.address}`,
                       },
                       {
                         title: "Salesperson",
+                        key: car.sales_person.id,
                         content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
                       },
-                    ].map(({ title, content }) => (
+                    ].map(({ title, key, content }) => (
                       <Box
-                        key={title}
+                        key={key}
                         sx={{
                           mt: 2,
                           p: 2,
