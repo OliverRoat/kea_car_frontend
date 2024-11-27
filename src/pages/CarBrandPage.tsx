@@ -68,7 +68,7 @@ function CarBrandPage() {
                     boxShadow: theme.shadows[3],
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     "&:hover": {
-                      transform: "scale(1.05)", // Slight zoom on hover
+                      transform: "scale(1.05)",
                       boxShadow: theme.shadows[6],
                     },
                   }}
@@ -83,9 +83,9 @@ function CarBrandPage() {
                         height: isMobile ? "80px" : "100px", // Adjust image height for mobile
                         objectFit: "contain",
                         padding: 2,
-                        transition: "transform 0.3s ease", // Smooth zoom effect
+                        transition: "transform 0.3s ease",
                         "&:hover": {
-                          transform: "scale(1.1)", // Zoom effect on hover
+                          transform: "scale(1.1)",
                         },
                       }}
                     />

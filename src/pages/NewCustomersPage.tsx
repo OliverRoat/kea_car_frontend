@@ -25,7 +25,7 @@ function NewCustomerPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Determine where to navigate after creating a customer
+  // Determine where to navigate after creating a customer so we can do this from multiple pages
   const redirectTo = location.state?.redirectTo || "/customers";
 
   const handleCreateCustomer = async () => {
@@ -38,7 +38,7 @@ function NewCustomerPage() {
         address,
       };
       await apiClient.post("/customer", newCustomer);
-      navigate(redirectTo); // Navigate to the appropriate page
+      navigate(redirectTo);
     } catch (err) {
       setError("Failed to create customer. Please try again.");
     }

@@ -53,7 +53,7 @@ function ModelPage() {
           p={3}
           sx={{
             maxWidth: "1200px",
-            margin: "0 auto", // Center content
+            margin: "0 auto",
             position: "relative",
           }}
         >
@@ -91,9 +91,9 @@ function ModelPage() {
           {/* Models Grid */}
           <Grid
             container
-            spacing={2} // Adjust spacing
+            spacing={2}
             justifyContent="center"
-            sx={{ padding: isMobile ? 1 : 3 }} // Adjust padding
+            sx={{ padding: isMobile ? 1 : 3 }}
           >
             {models.map((model) => (
               <Grid
@@ -111,7 +111,7 @@ function ModelPage() {
                     borderRadius: "10px",
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     "&:hover": {
-                      transform: "scale(1.05)", // Slight zoom on hover
+                      transform: "scale(1.05)",
                       boxShadow: theme.shadows[6],
                     },
                   }}
