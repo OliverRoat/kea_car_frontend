@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import useCar from "../hooks/useCar";
 import RestrictedContent from "../components/RestrictedContent";
+import SeasonalTires from "../components/SeasonalTires";
 
 function CarReceiptPage() {
   const { car_id } = useParams<{ car_id: string }>();
@@ -52,7 +53,7 @@ function CarReceiptPage() {
             align="center"
             gutterBottom
           >
-            Car Receipt
+            Car Receipt <SeasonalTires />
           </Typography>
           {car ? (
             <Grid container justifyContent="center">
