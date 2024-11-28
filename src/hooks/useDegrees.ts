@@ -5,7 +5,7 @@ import apiClient from "../services/apiClient";
 export default function useDegrees() {
     const [degrees, setDegrees] = useState<number | null>(null);
     useEffect(() => {
-        setDegrees(0);
+        setDegrees(-1);
         return () => {};
     }, []);
     return { degrees };

@@ -45,15 +45,16 @@ function CarReceiptPage() {
   }
 
   return (
-    <RestrictedContent
-      children={
+    <RestrictedContent>
+      <SeasonalTires />
+      <Box sx={{ position: "relative" }}>
         <Container maxWidth="lg" sx={{ mt: 4, padding: isMobile ? 2 : 4 }}>
           <Typography
             variant={isMobile ? "h5" : "h4"}
             align="center"
             gutterBottom
           >
-            Car Receipt <SeasonalTires />
+            Car Receipt
           </Typography>
           {car ? (
             <Grid container justifyContent="center">
@@ -161,8 +162,8 @@ function CarReceiptPage() {
             View All Cars
           </Button>
         </Container>
-      }
-    />
+      </Box>
+    </RestrictedContent>
   );
 }
 

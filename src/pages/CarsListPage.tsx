@@ -84,33 +84,33 @@ function CarsListPage() {
                     {[
                       {
                         title: "Color",
-                        key: car.color.id,
+                        key: `color-${car.id}`,
                         content: `${
                           car.color.name
                         } - $${car.color.price.toFixed(2)}`,
                       },
                       {
                         title: "Accessories",
-                        key: car.accessories.length > 0 ? car.accessories.map((acc) => acc.id).join(",") : "no-accessories",
+                        key: `accessories-${car.id}`,
                         content: car.accessories.length > 0
                           ? car.accessories.map((acc) => `${acc.name} - $${acc.price.toFixed(2)}`).join(", ")
                           : "No accessories",
                       },
                       {
                         title: "Insurances",
-                        key: car.insurances.length > 0 ? car.insurances.map((ins) => ins.id).join(",") : "no-insurances",
+                        key: `insurances-${car.id}`,
                         content: car.insurances.length > 0
                           ? car.insurances.map((ins) => `${ins.name} - $${ins.price.toFixed(2)}`).join(", ")
                           : "No insurances",
                       },
                       {
                         title: "Customer",
-                        key: car.customer.id,
+                        key: `customer-${car.id}`,
                         content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number}, Address: ${car.customer.address}`,
                       },
                       {
                         title: "Salesperson",
-                        key: car.sales_person.id,
+                        key: `sales-person-${car.id}`,
                         content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
                       },
                     ].map(({ title, key, content }) => (
