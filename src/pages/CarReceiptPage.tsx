@@ -33,7 +33,7 @@ function CarReceiptPage() {
   }, [car_id, fetchCarById]);
 
   if (loading) {
-    return <CircularProgress sx={{ display: "block", margin: "20px auto" }} />;
+    return <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
   }
 
   if (error) {

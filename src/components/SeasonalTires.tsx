@@ -45,7 +45,7 @@ export default function SeasonalTires() {
           fontSize: isTiny ? "0.5rem" : isMobile ? "0.45rem" : "1rem", // Adjust font size for different screen sizes
         }}
       >
-        So it is recommended to use {degrees && degrees > 7 ? "winter Tires" : "all Season Tires"}.
+        So it is recommended to use {degrees && degrees <= 7 ? "winter Tires" : "all Season Tires"}.
       </Typography>
     </Box>
   );

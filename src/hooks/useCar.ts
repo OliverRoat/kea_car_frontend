@@ -7,6 +7,7 @@ import { Accessory } from "./useAccessories";
 import { Insurance } from "./useInsurances";
 import { SalesPerson } from "./useLogin";
 
+
 interface CarData {
   purchase_deadline: string;
   models_id: string;
@@ -27,11 +28,13 @@ export interface Car {
   customer: Customer;
   sales_person: SalesPerson;
   total_price: number;
+  is_purchased: boolean;
 }
 
 interface UseCarReturn {
   createCar: (carData: CarData) => Promise<any>;
-  fetchAllCars: () => void;
+  deleteCar: (id: string, deletePurchaseToo: boolean) => Promise<void>;
+  fetchAllCars: () => Promise<void>;
   fetchCarById: (id: string) => Promise<void>;
   loading: boolean;
   error: string | null;
@@ -55,12 +58,31 @@ const useCar = (): UseCarReturn => {
       setCar(response.data);
       return response.data;
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to create car");
+      setError(err.response?.data?.message ?? "Failed to create car");
       throw err;
     } finally {
       setLoading(false);
     }
   };
+
+  const deleteCar = useCallback(async (carId: string, deletePurchaseToo: boolean = false) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const query = deletePurchaseToo ? "?delete_purchase_too=true" : "";
+      console.log("Deleting car:", carId);
+      const response = await apiClient.delete(`/car/${carId}${query}`);
+      console.log("Deleted car:", response.data); 
+      setAllCars((prevCars) => prevCars.filter((car) => car.id !== carId));
+    } catch (err: any) {
+      console.error("Failed to delete car:", err);
+      setError(err.response?.data?.message ?? "Failed to delete car");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   // Function to fetch all cars
   const fetchAllCars = useCallback(async () => {
@@ -72,7 +94,7 @@ const useCar = (): UseCarReturn => {
       setAllCars(response.data);
       console.log("Fetched cars:", response.data);
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to fetch cars");
+      setError(err.response?.data?.message ?? "Failed to fetch cars");
     } finally {
       setLoading(false);
     }
@@ -88,13 +110,22 @@ const useCar = (): UseCarReturn => {
       setCar(response.data);
       console.log("Fetched car:", response.data);
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to fetch car");
+      setError(err.response?.data?.message ?? "Failed to fetch car");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  return { createCar, fetchAllCars, fetchCarById, loading, error, car, allCars };
+  return { 
+    createCar, 
+    deleteCar, 
+    fetchAllCars, 
+    fetchCarById, 
+    loading, 
+    error, 
+    car, 
+    allCars 
+  };
 };
 
 export default useCar;
