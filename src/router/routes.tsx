@@ -8,6 +8,7 @@ import NewCustomerPage from "../pages/NewCustomersPage";
 import EditCustomerPage from "../pages/EditCustomerPage";
 import CarsListPage from "../pages/CarsListPage";
 import CarReceiptPage from "../pages/CarReceiptPage";
+import CarPage from "../pages/CarPage";
 import { Navigate } from "react-router-dom";
 
 export const routes = [
@@ -60,6 +61,11 @@ export const routes = [
     path: "/car-receipt/:car_id",
     name: "Car Receipt",
     element: <CarReceiptPage />,
+  },
+  {
+    path: "/car/:car_id",
+    name: "Car",
+    element: <CarPage />,
   },
   {
     path: "*",

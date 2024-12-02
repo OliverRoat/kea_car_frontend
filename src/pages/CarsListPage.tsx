@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -20,7 +21,7 @@ function CarsListPage() {
   const { allCars, fetchAllCars, loading, error } = useCar();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const navigate = useNavigate();
   const [carList, setCarList] = useState<Car[]>(allCars);
 
   useEffect(() => {
@@ -79,11 +80,17 @@ function CarsListPage() {
                 }}
               >
                 <CardMedia
+                  onClick={() => navigate(`/car/${car.id}`)}
                   component="img"
                   sx={{
+                    cursor: "pointer",
                     height: isMobile ? 150 : 200,
                     objectFit: "contain",
                     marginTop: 1,
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.06)",
+                    },
                   }}
                   image={car.model.image_url}
                   alt={car.model.name}

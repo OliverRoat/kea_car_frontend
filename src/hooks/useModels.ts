@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
+import { Brand } from "./useBrands";
 
 export interface ModelQuery {
   brandId: string | null;
@@ -11,6 +12,7 @@ export interface Model {
   price: number;
   image_url: string;
   colors: Color[];
+  brand: Brand;
 }
 export interface Color {
   id: string;
