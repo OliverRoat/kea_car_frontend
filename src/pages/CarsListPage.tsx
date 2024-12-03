@@ -11,6 +11,8 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import RestrictedContent from "../components/RestrictedContent";
 import useCar, { Car } from "../hooks/useCar";
@@ -23,6 +25,7 @@ function CarsListPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
   const [carList, setCarList] = useState<Car[]>(allCars);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     fetchAllCars();
@@ -50,8 +53,13 @@ function CarsListPage() {
     );
   };
 
-  const removeCarFromList = (carId: string) => {
-    setCarList((prevCarList) => prevCarList.filter((car) => car.id !== carId));
+  const handleDeleteCar = (carId: string) => {
+    setCarList((prevCars) => prevCars.filter((car) => car.id !== carId));
+    setSnackbarOpen(true); // Open the snackbar when a car is deleted
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -140,7 +148,11 @@ function CarsListPage() {
                     {
                       title: "Customer",
                       key: `customer-${car.id}`,
-                      content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number}, Address: ${car.customer.address}`,
+                      content: `${car.customer.first_name} ${
+                        car.customer.last_name
+                      }, Email: ${car.customer.email}, Phone: ${
+                        car.customer.phone_number ?? ""
+                      }, Address: ${car.customer.address ?? ""}`,
                     },
                     {
                       title: "Salesperson",
@@ -193,7 +205,7 @@ function CarsListPage() {
                       />
                       <DeleteCarButton
                         car={car}
-                        onDeleteCar={removeCarFromList} // Pass the callback function
+                        onDeleteCar={handleDeleteCar} // Pass the callback function
                       />
                     </Box>
                     <Typography variant="h6" mt={1} color="primary">
@@ -204,6 +216,19 @@ function CarsListPage() {
               </Card>
             </Grid>
           ))}
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleSnackbarClose}
+          >
+            <Alert
+              onClose={handleSnackbarClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Car deleted successfully!
+            </Alert>
+          </Snackbar>
         </Grid>
       </Container>
     </RestrictedContent>

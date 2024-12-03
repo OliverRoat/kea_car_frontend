@@ -110,7 +110,7 @@ function CarReceiptPage() {
                       },
                       {
                         title: "Customer",
-                        content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number}, Address: ${car.customer.address}`,
+                        content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number ?? ""}, Address: ${car.customer.address ?? ""}`,
                       },
                       {
                         title: "Salesperson",

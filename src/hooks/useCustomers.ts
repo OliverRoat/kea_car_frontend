@@ -4,10 +4,10 @@ import apiClient from "../services/apiClient";
 export interface Customer {
   id: string;
   email: string;
-  phone_number: string;
+  phone_number: string | null;
   first_name: string;
   last_name: string;
-  address: string;
+  address: string | null;
 }
 
 interface UseCustomersReturn {

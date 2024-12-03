@@ -8,11 +8,12 @@ import {
   Typography,
   Grid,
   Divider,
-  Stack,
   Switch,
   CircularProgress,
   useTheme,
   useMediaQuery,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAccessories from "../hooks/useAccessories";
@@ -34,6 +35,7 @@ function CarAccessoriesPage() {
   const [selectedAccessories, setSelectedAccessories] = useState<string[]>([]);
   const [showInsurances, setShowInsurances] = useState(false);
   const [selectedInsurances, setSelectedInsurances] = useState<string[]>([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { brand, model, color } = location.state || {};
@@ -48,11 +50,19 @@ function CarAccessoriesPage() {
   }, [brand, model, color]);
 
   const handleAccessoryChange = (accessoryId: string) => {
-    setSelectedAccessories((prev) =>
-      prev.includes(accessoryId)
-        ? prev.filter((id) => id !== accessoryId)
-        : [...prev, accessoryId]
-    );
+    setSelectedAccessories((prev) => {
+      if (prev.includes(accessoryId)) {
+        return prev.filter((id) => id !== accessoryId);
+      } else if (prev.length >= 10) {
+        setSnackbarOpen(true);
+        return prev;
+      }
+      return [...prev, accessoryId];
+    });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   const handleInsuranceChange = (insuranceId: string) => {
@@ -245,6 +255,20 @@ function CarAccessoriesPage() {
               Save Car Configuration
             </Button>
           </Box>
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleSnackbarClose}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              You can select up to 10 accessories only.
+            </Alert>
+          </Snackbar>
         </Box>
       }
     />

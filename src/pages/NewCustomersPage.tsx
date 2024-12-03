@@ -17,8 +17,8 @@ function NewCustomerPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | null>(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();

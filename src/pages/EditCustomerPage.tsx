@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import useCustomers from "../hooks/useCustomers";
+import useCustomers, { Customer } from "../hooks/useCustomers";
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import axios from "axios";
@@ -23,7 +23,6 @@ import {
   Stack,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Customer } from "../hooks/useCustomers";
 import RestrictedContent from "../components/RestrictedContent";
 
 function EditCustomerPage() {

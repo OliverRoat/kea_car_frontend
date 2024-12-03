@@ -125,7 +125,7 @@ function CarPage() {
               {" - "}
               {selectedCar.model.name}
             </Typography>
-            <Grid container spacing={2} sx={{ mb: isMobile ? 1 : 2 }}>
+            <Grid container spacing={1} sx={{ mb: isMobile ? 1 : 2 }}>
               <Grid item xs={12} md={6} mb={4}>
                 <Box
                   sx={{
