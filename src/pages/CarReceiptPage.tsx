@@ -133,7 +133,6 @@ function CarReceiptPage() {
                         </Typography>
                       </Box>
                     ))}
-
                     <Box sx={{ mt: 2 }}>
                       <Typography variant="body2" color="text.primary">
                         Purchase Deadline:{" "}

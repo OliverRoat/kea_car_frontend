@@ -1,13 +1,17 @@
 // src/hooks/useDegrees.ts
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
+interface WeatherResponse{
+    temp_f:number;
+}
 
 export default function useDegrees() {
-    const [degrees, setDegrees] = useState<number | null>(null);
-    useEffect(() => {
-        setDegrees(8);
-        return () => {};
-    }, []);
-    return { degrees };
+    return useQuery({
+        queryKey: ["weather"],
+        queryFn: () =>  apiClient
+        .get<WeatherResponse>("/weather/Denmark")
+        .then((response) => response.data)
+      });
 }
 

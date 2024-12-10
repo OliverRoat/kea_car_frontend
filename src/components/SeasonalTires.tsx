@@ -2,10 +2,11 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import useDegrees from "../hooks/useDegrees";
 
 export default function SeasonalTires() {
-  const { degrees } = useDegrees();
+  const { data:degrees } = useDegrees();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTiny = useMediaQuery("(max-width:1000px)"); // Custom threshold for very small screens
+  console.log(degrees)
 
   return (
     <Box
@@ -36,7 +37,7 @@ export default function SeasonalTires() {
           fontSize: isTiny ? "0.75rem" : isMobile ? "0.6rem" : "1.25rem", // Adjust font size for different screen sizes
         }}
       >
-        It is {degrees}°C degrees.
+        It is {degrees?.temp_f}°C degrees.
       </Typography>
       <Typography
         variant="body1"
@@ -45,7 +46,7 @@ export default function SeasonalTires() {
           fontSize: isTiny ? "0.5rem" : isMobile ? "0.45rem" : "1rem", // Adjust font size for different screen sizes
         }}
       >
-        So it is recommended to use {degrees && degrees <= 7 ? "winter Tires" : "all Season Tires"}.
+        So it is recommended to use {degrees && degrees?.temp_f <= 7 ? "winter Tires" : "all Season Tires"}.
       </Typography>
     </Box>
   );
