@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
 
 export interface Accessory {
@@ -8,53 +8,41 @@ export interface Accessory {
   price: number;
 }
 
-interface UseAccessoriesReturn {
-  accessories: Accessory[];
-  accessory: Accessory | null;
-  error: string;
-  loading: boolean;
-  fetchAllAccessories: () => void;
-  fetchAccessoryById: (id: string) => void;
-}
+const fetchAllAccessories = async (): Promise<Accessory[]> => {
+  const response = await apiClient.get<Accessory[]>("/accessories");
+  return response.data;
+};
 
-const useAccessories = (): UseAccessoriesReturn => {
-  const [accessories, setAccessories] = useState<Accessory[]>([]);
-  const [accessory, setAccessory] = useState<Accessory | null>(null);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+const fetchAccessoryById = async (id: string): Promise<Accessory> => {
+  const response = await apiClient.get<Accessory>(`/accessory/${id}`);
+  return response.data;
+};
 
-  // Fetch all accessories
-  const fetchAllAccessories = () => {
-    setLoading(true);
-    apiClient
-      .get<Accessory[]>("/accessories")
-      .then((response) => setAccessories(response.data))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  };
+// Here we are using the useQuery to fetch all accessories
+const useAccessories = () => {
+  const {
+    data: accessories,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["accessories"], // Unique query key that caches and manges the state of this data
+    queryFn: fetchAllAccessories,
+  });
 
-  // Fetch a single accessory by ID
-  const fetchAccessoryById = (id: string) => {
-    setLoading(true);
-    apiClient
-      .get<Accessory>(`/accessory/${id}`)
-      .then((response) => setAccessory(response.data))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  };
-
-  // Initial data load - fetch all accessories on mount
-  useEffect(() => {
-    fetchAllAccessories();
-  }, []);
+  // Again we are using the new useQuery hook to fetch a single accessory by id
+  const useAccessoryById = (id: string) =>
+    useQuery({
+      queryKey: ["accessory", id],
+      queryFn: () => fetchAccessoryById(id),
+      enabled: !!id,
+    });
 
   return {
-    accessories,
-    accessory,
-    error,
-    loading,
-    fetchAllAccessories,
-    fetchAccessoryById,
+    accessories: accessories || [],
+    loading: isLoading,
+    error: isError ? (error as Error).message : "",
+    useAccessoryById,
   };
 };
 
