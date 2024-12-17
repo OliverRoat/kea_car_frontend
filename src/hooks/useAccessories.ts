@@ -26,6 +26,8 @@ const useAccessories = () => {
     queryKey: ["accessories"], // Unique query key that caches and manges the state of this data
     queryFn: fetchAllAccessories,
     staleTime: 60000, // Data is considered fresh for 1 minute
+    retry: 3, // Number of retry attempts
+    retryDelay: 5000, // Fixed delay of 5 seconds between retry attempts
   });
 
 
