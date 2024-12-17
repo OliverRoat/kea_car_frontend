@@ -13,10 +13,7 @@ const fetchAllAccessories = async (): Promise<Accessory[]> => {
   return response.data;
 };
 
-const fetchAccessoryById = async (id: string): Promise<Accessory> => {
-  const response = await apiClient.get<Accessory>(`/accessory/${id}`);
-  return response.data;
-};
+
 
 // Here we are using the useQuery to fetch all accessories
 const useAccessories = () => {
@@ -25,24 +22,17 @@ const useAccessories = () => {
     isLoading,
     isError,
     error,
-  } = useQuery({
+  } = useQuery<Accessory[], Error>({
     queryKey: ["accessories"], // Unique query key that caches and manges the state of this data
     queryFn: fetchAllAccessories,
+    staleTime: 60000, // Data is considered fresh for 1 minute
   });
 
-  // Again we are using the new useQuery hook to fetch a single accessory by id
-  const useAccessoryById = (id: string) =>
-    useQuery({
-      queryKey: ["accessory", id],
-      queryFn: () => fetchAccessoryById(id),
-      enabled: !!id,
-    });
 
   return {
     accessories: accessories || [],
     loading: isLoading,
-    error: isError ? (error as Error).message : "",
-    useAccessoryById,
+    error: isError ? error.message : "",
   };
 };
 
