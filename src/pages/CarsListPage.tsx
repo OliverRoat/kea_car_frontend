@@ -66,9 +66,9 @@ function CarsListPage() {
     <RestrictedContent>
       <Container maxWidth="lg" sx={{ mt: 4, padding: isMobile ? 2 : 4 }}>
         <Typography
-          variant={isMobile ? "h5" : "h4"}
+          variant={isMobile ? "h5" : "h3"}
           align="center"
-          gutterBottom
+          gutterBottom={true}
         >
           Cars
         </Typography>

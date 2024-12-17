@@ -91,9 +91,9 @@ function CarPage() {
         key={car_id}
       >
         <Typography
-          variant={isMobile ? "h5" : "h4"}
+          variant={isMobile ? "h5" : "h3"}
           align="center"
-          gutterBottom
+          gutterBottom={true}
         >
           Car Details
         </Typography>
@@ -338,7 +338,7 @@ function CarPage() {
                         color="text.primary"
                         style={{
                           textDecoration: "underline",
-                          textDecorationThickness: "3px",
+                          textDecorationThickness: "2px",
                         }}
                       >
                         Insurances:
@@ -398,13 +398,13 @@ function CarPage() {
                   style={{
                     fontWeight: "bold",
                     textDecoration: "underline",
-                    textDecorationThickness: "3px",
+                    textDecorationThickness: "2px",
                   }}
                 >
                   Purchase Date:{" "}
                   {selectedPurchase?.date_of_purchase
                     ? new Date(
-                        selectedCar.purchase_deadline
+                      selectedPurchase.date_of_purchase
                       ).toLocaleDateString()
                     : "Not purchased yet"}
                 </Typography>
