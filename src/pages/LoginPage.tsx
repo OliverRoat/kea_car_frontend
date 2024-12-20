@@ -24,7 +24,9 @@ function LoginPage() {
     try {
       await login(email, password);
       navigate("/brands");
-    } catch {}
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
   };
 
   return (
@@ -40,11 +42,15 @@ function LoginPage() {
         textAlign: "center",
       }}
     >
-      <Typography variant={isMobile ? "h5" : "h4"} align="center" gutterBottom>
+      <Typography 
+      data-testid="login-title"
+      variant={isMobile ? "h5" : "h4"} 
+      align="center" gutterBottom>
         Login
       </Typography>
       <Stack spacing={3}>
         <TextField
+          data-testid="email-login-input"
           label="Email"
           type="email"
           variant="outlined"
@@ -54,6 +60,7 @@ function LoginPage() {
           sx={{ fontSize: "1rem" }}
         />
         <TextField
+          data-testid="password-login-input"
           label="Password"
           type="password"
           variant="outlined"
@@ -63,6 +70,7 @@ function LoginPage() {
           sx={{ fontSize: "1rem" }}
         />
         <Button
+          data-testid="login-button"
           variant="contained"
           onClick={handleLogin}
           disabled={loading}
