@@ -53,6 +53,7 @@ function LoginPage() {
           data-testid="email-login-input"
           label="Email"
           type="email"
+          id="email-login-input"
           variant="outlined"
           fullWidth
           value={email}
@@ -63,6 +64,7 @@ function LoginPage() {
           data-testid="password-login-input"
           label="Password"
           type="password"
+          id="password-login-input"
           variant="outlined"
           fullWidth
           value={password}

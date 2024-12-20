@@ -85,6 +85,7 @@ function NewCustomerPage() {
             <TextField
               label="First Name"
               variant="outlined"
+              id="new-customer-first-name-input"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
@@ -93,6 +94,7 @@ function NewCustomerPage() {
             <TextField
               label="Last Name"
               variant="outlined"
+              id="new-customer-last-name-input"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
@@ -101,6 +103,7 @@ function NewCustomerPage() {
             <TextField
               label="Email"
               type="email"
+              id="new-customer-email-input"
               variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -110,6 +113,7 @@ function NewCustomerPage() {
             <TextField
               label="Phone Number"
               type="tel"
+              id="new-customer-phone-number-input"
               variant="outlined"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -117,6 +121,7 @@ function NewCustomerPage() {
 
             <TextField
               label="Address"
+              id="new-customer-address-input"
               variant="outlined"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
@@ -124,7 +129,7 @@ function NewCustomerPage() {
 
             <Button
               type="submit"
-              id="save-customer-button"
+              id="save-new-customer-button"
               variant="contained"
               fullWidth
               sx={{
