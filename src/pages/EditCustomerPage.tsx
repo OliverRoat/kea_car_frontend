@@ -148,6 +148,7 @@ function EditCustomerPage() {
           </Typography>
           <Box display="flex" justifyContent="flex-end" mb={2}>
             <Button
+              id="create-customer"
               variant="contained"
               color="success"
               onClick={() =>
@@ -186,6 +187,7 @@ function EditCustomerPage() {
                       </Typography>
                       <Box display="flex" gap={1} mt={2}>
                         <Button
+                          id={`edit-customer${customer.id}`}
                           variant="contained"
                           color="success"
                           onClick={() => handleEditClick(customer)}
@@ -194,6 +196,7 @@ function EditCustomerPage() {
                           Edit
                         </Button>
                         <Button
+                          id={`delete-customer${customer.id}`}
                           variant="contained"
                           color="error"
                           onClick={() => handleDelete(customer.id)}

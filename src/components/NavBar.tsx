@@ -21,6 +21,7 @@ import { styled } from "@mui/material/styles";
 import { useThemeToggle } from "../styles/themeContext";
 
 const ThemeToggleButton = styled(Box)(({ theme }) => ({
+  id: "theme-toggle-button",
   width: 60,
   height: 30,
   backgroundColor: theme.palette.background.default,
@@ -40,6 +41,7 @@ const ThemeToggleButton = styled(Box)(({ theme }) => ({
 }));
 
 const ToggleThumb = styled(Box)(({ theme }) => ({
+  id: "toggle-thumb",
   width: 24,
   height: 24,
   backgroundColor: theme.palette.primary.main,
@@ -69,8 +71,8 @@ const NavBar = () => {
   };
 
   const navItems = [
-    { label: "Customers", onClick: () => navigate("/edit-customer") },
-    { label: "Cars", onClick: () => navigate("/cars") },
+    { label: "Customers", onClick: () => navigate("/edit-customer"), id: "view-customers" },
+    { label: "Cars", onClick: () => navigate("/cars"), id: "view-cars" },
   ];
 
   return (
