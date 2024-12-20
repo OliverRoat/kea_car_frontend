@@ -124,6 +124,7 @@ function NewCustomerPage() {
 
             <Button
               type="submit"
+              id="save-customer-button"
               variant="contained"
               fullWidth
               sx={{

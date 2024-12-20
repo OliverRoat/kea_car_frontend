@@ -127,6 +127,7 @@ const NavBar = () => {
                 <Button
                   key={index}
                   onClick={item.onClick}
+                  id={item.id}
                   sx={{
                     color: theme.palette.text.primary,
                     fontSize: "16px",
