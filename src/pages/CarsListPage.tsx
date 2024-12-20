@@ -13,6 +13,7 @@ import {
   useMediaQuery,
   Snackbar,
   Alert,
+  Button,
 } from "@mui/material";
 import RestrictedContent from "../components/RestrictedContent";
 import useCar, { Car } from "../hooks/useCar";
@@ -24,8 +25,10 @@ function CarsListPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [carList, setCarList] = useState<Car[]>(allCars);
+  const [carList, setCarList] = useState<Car[]>([]);
+  const [visibleCars, setVisibleCars] = useState<Car[]>([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [carsToShow, setCarsToShow] = useState(5);
 
   useEffect(() => {
     fetchAllCars();
@@ -33,7 +36,8 @@ function CarsListPage() {
 
   useEffect(() => {
     setCarList(allCars);
-  }, [allCars]);
+    setVisibleCars(allCars.slice(0, carsToShow));
+  }, [allCars, carsToShow]);
 
   if (loading) {
     return <CircularProgress sx={{ display: "block", margin: "20px auto" }} />;
@@ -51,15 +55,27 @@ function CarsListPage() {
     setCarList((prevCarList) =>
       prevCarList.map((car) => (car.id === updatedCar.id ? updatedCar : car))
     );
+    setVisibleCars((prevVisibleCars) =>
+      prevVisibleCars.map((car) =>
+        car.id === updatedCar.id ? updatedCar : car
+      )
+    );
   };
 
   const handleDeleteCar = (carId: string) => {
     setCarList((prevCars) => prevCars.filter((car) => car.id !== carId));
+    setVisibleCars((prevVisibleCars) =>
+      prevVisibleCars.filter((car) => car.id !== carId)
+    );
     setSnackbarOpen(true); // Open the snackbar when a car is deleted
   };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+  };
+
+  const loadMoreCars = () => {
+    setCarsToShow((prev) => prev + 5);
   };
 
   return (
@@ -73,7 +89,7 @@ function CarsListPage() {
           Cars
         </Typography>
         <Grid container spacing={3}>
-          {carList.map((car) => (
+          {visibleCars.map((car) => (
             <Grid item xs={12} sm={6} md={4} key={car.id}>
               <Card
                 sx={{
@@ -216,20 +232,27 @@ function CarsListPage() {
               </Card>
             </Grid>
           ))}
-          <Snackbar
-            open={snackbarOpen}
-            autoHideDuration={6000}
-            onClose={handleSnackbarClose}
-          >
-            <Alert
-              onClose={handleSnackbarClose}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              Car deleted successfully!
-            </Alert>
-          </Snackbar>
         </Grid>
+        {visibleCars.length >= 5 && visibleCars.length < carList.length && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+            <Button variant="contained" color="primary" onClick={loadMoreCars}>
+              Load More Cars
+            </Button>
+          </Box>
+        )}
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Car deleted successfully!
+          </Alert>
+        </Snackbar>
       </Container>
     </RestrictedContent>
   );
