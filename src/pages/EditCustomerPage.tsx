@@ -72,6 +72,20 @@ function EditCustomerPage() {
         return;
       }
 
+      /**
+       * All fields are required
+       */
+      if (
+        !selectedCustomer.email ||
+        !selectedCustomer.phone_number ||
+        !selectedCustomer.first_name ||
+        !selectedCustomer.last_name ||
+        !selectedCustomer.address
+      ) {
+        showAlert("All fields are required", "error");
+        return;
+      }
+
       const updatedFields: Partial<Customer> = {};
 
       if (originalCustomer.email !== selectedCustomer.email) {

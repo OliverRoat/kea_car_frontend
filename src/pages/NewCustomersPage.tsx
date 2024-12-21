@@ -29,7 +29,35 @@ function NewCustomerPage() {
   const redirectTo = location.state?.redirectTo || "/customers";
 
   const handleCreateCustomer = async () => {
-    try {
+    /**
+     * Add some client-side validation
+     */
+    if (!firstName) {
+      setError("First Name is required");
+      return;
+    }
+
+    if (!lastName) {
+      setError("Last Name is required");
+      return;
+    }
+
+    if (!email) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!phoneNumber) {
+      setError("Phone Number is required");
+      return;
+    }
+
+    if (!address) {
+      setError("Address is required");
+      return;
+    }
+    
+    try {    
       const newCustomer = {
         first_name: firstName,
         last_name: lastName,
@@ -67,7 +95,7 @@ function NewCustomerPage() {
           </Typography>
 
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert severity="error" sx={{ mb: 2 }} data-testid="new-customer-error-alert">
               {error}
             </Alert>
           )}

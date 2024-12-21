@@ -9,18 +9,33 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
+  Alert,
 } from "@mui/material";
 import useLogin from "../hooks/useLogin";
 
 function LoginPage() {
   const { login, error, loading } = useLogin();
   const navigate = useNavigate();
+  const [fieldError, setFieldError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleLogin = async () => {
+    /**
+     * Add some client-side validation
+     */
+    if (!email) {
+      setFieldError("Email is required");
+      return;
+    }
+
+    if (!password) {
+      setFieldError("Password is required");
+      return;
+    }
+
     try {
       await login(email, password);
       navigate("/brands");
@@ -48,6 +63,11 @@ function LoginPage() {
       align="center" gutterBottom>
         Login
       </Typography>
+      {fieldError && (
+        <Alert severity="error" sx={{ mb: 2 }} data-testid="login-error-alert">
+          {fieldError}
+        </Alert>
+      )}
       <Stack spacing={3}>
         <TextField
           data-testid="email-login-input"

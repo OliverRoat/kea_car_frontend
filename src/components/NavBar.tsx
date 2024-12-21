@@ -160,6 +160,7 @@ const NavBar = () => {
               </Button>
               <ThemeToggleButton
                 onClick={toggleTheme}
+                data-testid={isDarkMode ? "dark-mode-toggle" : "light-mode-toggle"}
                 sx={{
                   backgroundColor: isDarkMode
                     ? "rgba(255, 255, 255, 0.1)"

@@ -40,6 +40,29 @@ describe('Authentication Functionality (Login, Logout and Protected Paths)', () 
     cy.login();
   });
 
+  it('should display an error if the user tries to login without email or password', () => {
+    // Visit the login page.
+    cy.goto('/login');
+
+    // Click the login button.
+    cy.get('[data-testid=login-button]').click();
+
+    // Ensure validation works for email.
+    cy.get('[data-testid=login-error-alert]')
+      .should('exist')
+      .should('have.text', 'Email is required');
+    // add email
+    cy.get('[data-testid=email-login-input] input').type('test@localhost.com');
+
+    // Click the login button again.
+    cy.get('[data-testid=login-button]').click();
+
+    // Ensure validation works for password.
+    cy.get('[data-testid=login-error-alert]')
+      .should('exist')
+      .should('have.text', 'Password is required');
+  });
+
   it('should allow user to logout', () => {
     cy.login();
 
