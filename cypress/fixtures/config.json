@@ -1,0 +1,9 @@
+{
+  "baseURL": "http://localhost:5173",
+  "protectedPaths": [
+    "/brands",
+    "/edit-customer",
+    "/new-customer",
+    "/customers"
+  ]
+}

@@ -143,6 +143,7 @@ const NavBar = () => {
               ))}
               <Button
                 onClick={handleLogout}
+                id="logout-button"
                 sx={{
                   color: "#fff",
                   fontSize: "16px",

@@ -143,7 +143,7 @@ function EditCustomerPage() {
     <RestrictedContent
       children={
         <Container maxWidth="lg" sx={{ mt: 4 }}>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography variant="h4" align="center" gutterBottom data-testid="edit-customer-title">
             Customers
           </Typography>
           <Box display="flex" justifyContent="flex-end" mb={2}>
@@ -164,7 +164,7 @@ function EditCustomerPage() {
             <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
           )}
           {error && <Typography color="error">{error}</Typography>}
-          <Grid container spacing={3}>
+          <Grid container spacing={3} data-testid="customers-grid">
             {customers.map((customer) => (
               <Grid item xs={12} sm={6} md={4} key={customer.id}>
                 <Card
