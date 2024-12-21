@@ -94,7 +94,11 @@ function CarsListPage() {
             <Grid item xs={12} sm={6} md={4} key={car.id}>
               <Card
                 onClick={() => navigate(`/car/${car.id}`)}
-                className="car-card"
+                // Add a class to add a flag to cards with expired purchase deadlines (used by e2e testing).
+                className={`car-card `
+                  + (car.purchase_deadline && new Date(car.purchase_deadline) < new Date() ? "car-purchase-deadline-expired " : "")
+                  + (car.is_purchased ? "car-purchased " : "")
+                }
                 sx={{
                   borderRadius: 2,
                   boxShadow: 3,
@@ -198,7 +202,7 @@ function CarsListPage() {
                   <Box sx={{ mt: 2 }}>
                     <Typography
                       variant="body2"
-                      color="text.primary"
+                      color="text.primary"                      
                       style={{
                         textDecoration: "underline",
                         textDecorationColor: car.is_purchased
@@ -216,7 +220,15 @@ function CarsListPage() {
                         ? new Date(car.purchase_deadline).toLocaleDateString()
                         : "Not set"}
                     </Typography>
-                    <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
+                    <Box 
+                      sx={{ mt: 2, display: "flex", gap: 1 }} 
+                      /**
+                       * Hidden because it seems more natural to click on the card to view and manage
+                       * the car details. Rather than having to click on the image (which is not clear at all) 
+                       * to view details which was the initial design. (Ideally, the buttons should just be removed)
+                       */
+                      className="hidden"
+                    >
                       <CreatePurchaseForCarButton
                         car={car}
                         onPurchaseCreated={updateCarInList} // Pass the callback function

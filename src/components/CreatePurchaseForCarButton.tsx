@@ -55,6 +55,7 @@ const CreatePurchaseForCarButton: React.FC<CreatePurchaseForCarButtonProps> = ({
   return (
     <>
       <Button
+        data-testid="create-purchase-button"
         variant="contained"
         onClick={isActive ? handleCreatePurchase : undefined}
         sx={{

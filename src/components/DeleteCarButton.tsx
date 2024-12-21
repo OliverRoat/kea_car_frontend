@@ -47,6 +47,7 @@ const DeleteCarButton: React.FC<DeleteCarButtonProps> = ({
       <Button
         variant="contained"
         color="secondary"
+        data-testid="delete-car-button"
         onClick={handleDeleteClick}
         disabled={loading}
         sx={{

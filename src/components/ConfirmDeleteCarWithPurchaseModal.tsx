@@ -27,7 +27,7 @@ const ConfirmDeleteCarWithPurchaseModal: React.FC<ConfirmDeleteCarWithPurchaseMo
   }, [open, carToBeDeleted, fetchPurchaseByCarId]);
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} data-testid="confirm-delete-modal">
       <Box
         sx={{
           position: "absolute",
@@ -60,7 +60,7 @@ const ConfirmDeleteCarWithPurchaseModal: React.FC<ConfirmDeleteCarWithPurchaseMo
           <Button variant="contained" color="primary" onClick={onClose}>
             No
           </Button>
-          <Button variant="contained" color="secondary" onClick={onConfirm}>
+          <Button variant="contained" color="secondary" onClick={onConfirm} data-testid="confirm-delete-button">
             Yes
           </Button>
         </Box>
