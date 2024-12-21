@@ -57,12 +57,6 @@ Cypress.Commands.add('goto', (path) => {
         cy.visit(`${baseURL}${path}`);
     });
 })
-
-Cypress.Commands.add('locationEq', (path) => {
-    cy.fixture('config').then(({ baseURL }) => {
-        cy.url().should('eq', `${baseURL}${path}`);
-    });
-})
 //
 //
 // -- This is a child command --

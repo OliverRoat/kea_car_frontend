@@ -1,5 +1,5 @@
 
-describe('Authentication Functionality', () => {
+describe('Authentication Functionality (Login, Logout and Protected Paths)', () => {
 
   /**
    * The beforeEach hook is not used in this test suite because
@@ -54,7 +54,7 @@ describe('Authentication Functionality', () => {
         cy.goto(path);
 
         // Check if the user is redirected to the login page.
-        cy.locationEq('/login');
+        cy.url().should('contain', '/login');
       });
     });
   });

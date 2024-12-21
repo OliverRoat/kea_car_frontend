@@ -120,6 +120,7 @@ function CarPage() {
               variant={isMobile ? "h5" : "h4"}
               component="div"
               sx={{ mb: isMobile ? 1 : 2 }}
+              data-testid="show-car-model-name"
             >
               {selectedCar.model.brand.name}
               {" - "}

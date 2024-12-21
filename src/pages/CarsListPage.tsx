@@ -84,17 +84,21 @@ function CarsListPage() {
         <Typography
           variant={isMobile ? "h5" : "h3"}
           align="center"
+          data-testid="cars-list-title"
           gutterBottom={true}
         >
           Cars
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} data-testid="cars-grid">
           {visibleCars.map((car) => (
             <Grid item xs={12} sm={6} md={4} key={car.id}>
               <Card
+                onClick={() => navigate(`/car/${car.id}`)}
+                className="car-card"
                 sx={{
                   borderRadius: 2,
                   boxShadow: 3,
+                  cursor: "pointer",
                   textAlign: "center",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
@@ -104,10 +108,8 @@ function CarsListPage() {
                 }}
               >
                 <CardMedia
-                  onClick={() => navigate(`/car/${car.id}`)}
                   component="img"
                   sx={{
-                    cursor: "pointer",
                     height: isMobile ? 150 : 200,
                     objectFit: "contain",
                     marginTop: 1,

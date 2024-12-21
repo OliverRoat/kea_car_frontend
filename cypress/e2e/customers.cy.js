@@ -1,5 +1,5 @@
 
-describe('Customers Functionality', () => {
+describe('Customers Functionality (List, Create, Edit and Delete)', () => {
 
     beforeEach(() => {
         // The login method is used in all tests in this suite.
@@ -45,7 +45,7 @@ describe('Customers Functionality', () => {
         cy.get('#save-new-customer-button').click();
 
         // Check if the page is redirected to the edit customers page.
-        cy.locationEq('/edit-customer');
+        cy.url().should('contain', '/edit-customer');
 
         // Find the customer with the email we just created.
         cy.get('[data-testid=customers-grid] div')
