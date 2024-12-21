@@ -191,6 +191,7 @@ function EditCustomerPage() {
                           variant="contained"
                           color="success"
                           onClick={() => handleEditClick(customer)}
+                          className="edit-button"
                           fullWidth
                         >
                           Edit
@@ -200,6 +201,7 @@ function EditCustomerPage() {
                           variant="contained"
                           color="error"
                           onClick={() => handleDelete(customer.id)}
+                          className="delete-button"
                           fullWidth
                         >
                           Delete
@@ -213,7 +215,7 @@ function EditCustomerPage() {
           </Grid>
 
           {/* Edit Customer Dialog */}
-          <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+          <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm" data-testid="edit-customer-dialog">
             <DialogTitle>
               Edit Customer
               <IconButton
@@ -238,6 +240,7 @@ function EditCustomerPage() {
                     label="First Name"
                     name="first_name"
                     variant="outlined"
+                    id="edit-customer-first-name-input"
                     value={selectedCustomer.first_name}
                     onChange={handleInputChange}
                     required
@@ -246,6 +249,7 @@ function EditCustomerPage() {
                     label="Last Name"
                     name="last_name"
                     variant="outlined"
+                    id="edit-customer-last-name-input"
                     value={selectedCustomer.last_name}
                     onChange={handleInputChange}
                     required
@@ -255,6 +259,7 @@ function EditCustomerPage() {
                     name="email"
                     type="email"
                     variant="outlined"
+                    id="edit-customer-email-input"
                     value={selectedCustomer.email}
                     onChange={handleInputChange}
                     required
@@ -263,6 +268,7 @@ function EditCustomerPage() {
                     label="Phone Number"
                     name="phone_number"
                     variant="outlined"
+                    id="edit-customer-phone-number-input"
                     value={selectedCustomer.phone_number}
                     onChange={handleInputChange}
                   />
@@ -270,6 +276,7 @@ function EditCustomerPage() {
                     label="Address"
                     name="address"
                     variant="outlined"
+                    id="edit-customer-address-input"
                     value={selectedCustomer.address}
                     onChange={handleInputChange}
                   />
@@ -284,6 +291,7 @@ function EditCustomerPage() {
                 onClick={handleUpdateCustomer}
                 variant="contained"
                 color="success"
+                id="save-edit-customer-button"
               >
                 Save Changes
               </Button>
@@ -301,6 +309,7 @@ function EditCustomerPage() {
               onClose={handleAlertClose}
               severity={alertSeverity}
               sx={{ width: "100%" }}
+              id="edit-customer-alert"
             >
               {alertMessage}
             </Alert>
