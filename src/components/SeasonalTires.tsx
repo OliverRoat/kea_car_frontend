@@ -44,6 +44,7 @@ export default function SeasonalTires() {
           fontFamily: "Roboto, sans-serif",
           fontSize: isTiny ? "0.5rem" : isMobile ? "0.45rem" : "1rem", // Adjust font size for different screen sizes
         }}
+        data-testid="seasonal-tires-text"
       >
         So it is recommended to use {degrees && degrees <= 7 ? "winter Tires" : "all Season Tires"}.
       </Typography>

@@ -43,8 +43,16 @@ describe('Authentication Functionality (Login, Logout and Protected Paths)', () 
   it('should allow user to logout', () => {
     cy.login();
 
-    // This is also a command in case we need to use it in multiple tests.
-    cy.logout();
+    cy.get('#logout-button')
+      .should('exist')
+      .should('have.attr', 'type', 'button')
+      .should('have.text', 'Logout');
+
+    // Click the logout button.
+    cy.get('#logout-button').click();
+
+    // Check if the user is redirected to the login page.
+    cy.url().should('contain', '/login');
   });
 
   it('should redirect unauthorized users to login page at protected paths', () => {

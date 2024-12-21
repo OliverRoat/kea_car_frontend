@@ -103,6 +103,7 @@ function CarColorPage() {
                       boxShadow: theme.shadows[6],
                     },
                   }}
+                  className="color-card"
                   onClick={() => handleColorSelect(color)}
                 >
                   <CardActionArea>

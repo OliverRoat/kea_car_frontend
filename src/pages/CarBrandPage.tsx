@@ -57,6 +57,7 @@ function CarBrandPage() {
                 key={brand.id}
               >
                 <Card
+                  className="brand-card"
                   onClick={() =>
                     navigate(`/brands/${brand.name.toLowerCase()}`, {
                       state: { id: brand.id },

@@ -105,6 +105,7 @@ function ModelPage() {
                 key={model.id}
               >
                 <Card
+                  className="model-card"
                   onClick={() => handleModelSelect(model)}
                   sx={{
                     cursor: "pointer",

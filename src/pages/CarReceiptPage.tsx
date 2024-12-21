@@ -69,6 +69,7 @@ function CarReceiptPage() {
                 >
                   <CardMedia
                     component="img"
+                    data-testid="car-receipt-image"
                     sx={{
                       height: isMobile ? 150 : 200,
                       objectFit: "contain",
@@ -78,7 +79,7 @@ function CarReceiptPage() {
                     alt={car.model.name}
                   />
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom data-testid="car-receipt-model">
                       {car.model.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
@@ -88,9 +89,9 @@ function CarReceiptPage() {
                     {[
                       {
                         title: "Color",
-                        content: `${
-                          car.color.name
-                        } - $${car.color.price.toFixed(2)}`,
+                        content: `${car.color.name
+                          } - $${car.color.price.toFixed(2)}`,
+                        testId: "car-receipt-color",
                       },
                       {
                         title: "Accessories",
@@ -99,6 +100,7 @@ function CarReceiptPage() {
                             (acc) => `${acc.name} - $${acc.price.toFixed(2)}`
                           )
                           .join(", "),
+                        testId: "car-receipt-accessories",
                       },
                       {
                         title: "Insurances",
@@ -107,16 +109,19 @@ function CarReceiptPage() {
                             (ins) => `${ins.name} - $${ins.price.toFixed(2)}`
                           )
                           .join(", "),
+                        testId: "car-receipt-insurances",
                       },
                       {
                         title: "Customer",
                         content: `${car.customer.first_name} ${car.customer.last_name}, Email: ${car.customer.email}, Phone: ${car.customer.phone_number ?? ""}, Address: ${car.customer.address ?? ""}`,
+                        testId: "car-receipt-customer",
                       },
                       {
                         title: "Salesperson",
                         content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
+                        testId: "car-receipt-salesperson",
                       },
-                    ].map(({ title, content }) => (
+                    ].map(({ title, content, testId }) => (
                       <Box
                         key={title}
                         sx={{
@@ -128,7 +133,7 @@ function CarReceiptPage() {
                         }}
                       >
                         <Typography variant="subtitle1">{title}</Typography>
-                        <Typography variant="body2" color="text.primary">
+                        <Typography variant="body2" color="text.primary" data-testid={testId}>
                           {content}
                         </Typography>
                       </Box>
@@ -140,7 +145,7 @@ function CarReceiptPage() {
                           ? new Date(car.purchase_deadline).toLocaleDateString()
                           : "Not set"}
                       </Typography>
-                      <Typography variant="h6" mt={1} color="primary">
+                      <Typography variant="h6" mt={1} color="primary" data-testid="car-receipt-total-price">
                         Total Price: ${car.total_price.toFixed(2)}
                       </Typography>
                     </Box>

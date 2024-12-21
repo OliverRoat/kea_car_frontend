@@ -148,6 +148,7 @@ function CustomersPage() {
                       boxShadow: 6,
                     },
                   }}
+                  className="customer-card"
                   onClick={() => handleCustomerSelect(customer.id)}
                 >
                   <CardContent>

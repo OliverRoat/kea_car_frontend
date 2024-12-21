@@ -156,6 +156,7 @@ function CarAccessoriesPage() {
                   <Grid item xs={12} sm={6} md={4} key={accessory.id}>
                     <Box display="flex" alignItems="center">
                       <Checkbox
+                        className="accessory-checkbox"
                         checked={selectedAccessories.includes(accessory.id)}
                         onChange={() => handleAccessoryChange(accessory.id)}
                         sx={{
@@ -248,6 +249,7 @@ function CarAccessoriesPage() {
           {/* Save Button */}
           <Box mt={4} textAlign="center">
             <Button
+              data-testid="save-car-configuration"
               variant="contained"
               color="success"
               onClick={saveCarConfiguration}

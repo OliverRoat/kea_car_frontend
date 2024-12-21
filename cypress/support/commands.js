@@ -35,28 +35,12 @@ Cypress.Commands.add('login', () => {
     });
 })
 
-Cypress.Commands.add('logout', () => {
-    cy.fixture('config').then(({ baseURL }) => {
-        cy.visit(`${baseURL}/brands`);
-
-        cy.get('#logout-button')
-            .should('exist')
-            .should('have.attr', 'type', 'button')
-            .should('have.text', 'Logout');
-
-        // Click the logout button.
-        cy.get('#logout-button').click();
-
-        // Check if the user is redirected to the login page.
-        cy.url().should('eq', `${baseURL}/login`);
-    });
-})
-
 Cypress.Commands.add('goto', (path) => {
     cy.fixture('config').then(({ baseURL }) => {
         cy.visit(`${baseURL}${path}`);
     });
 })
+
 //
 //
 // -- This is a child command --
