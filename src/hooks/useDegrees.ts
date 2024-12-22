@@ -1,5 +1,4 @@
 // src/hooks/useDegrees.ts
-import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
 interface WeatherResponse{

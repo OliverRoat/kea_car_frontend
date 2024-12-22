@@ -84,7 +84,7 @@ function CarPage() {
   }
 
   return (
-    <RestrictedContent>
+    <RestrictedContent slot={
       <Container
         maxWidth="lg"
         sx={{ mt: 4, padding: isMobile ? 2 : 4 }}
@@ -424,7 +424,7 @@ function CarPage() {
           </CardContent>
         </Card>
       </Container>
-    </RestrictedContent>
+    } />
   );
 }
 

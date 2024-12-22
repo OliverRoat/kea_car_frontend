@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 
 interface RestrictedContentProps {
-  children: ReactNode;
+  slot: ReactNode;
 }
 
 const RestrictedContent = (props: RestrictedContentProps) => {
@@ -19,7 +19,7 @@ const RestrictedContent = (props: RestrictedContentProps) => {
   return (
     <>
       <NavBar />
-      {props.children}
+      {props.slot}
     </>
   );
 };

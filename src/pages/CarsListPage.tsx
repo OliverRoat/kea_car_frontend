@@ -79,7 +79,7 @@ function CarsListPage() {
   };
 
   return (
-    <RestrictedContent>
+    <RestrictedContent slot={
       <Container maxWidth="lg" sx={{ mt: 4, padding: isMobile ? 2 : 4 }}>
         <Typography
           variant={isMobile ? "h5" : "h3"}
@@ -268,7 +268,7 @@ function CarsListPage() {
           </Alert>
         </Snackbar>
       </Container>
-    </RestrictedContent>
+    } />
   );
 }
 

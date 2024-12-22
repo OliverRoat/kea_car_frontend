@@ -39,6 +39,13 @@ To generate the sitemap, run the following command:
 npm run sitemap
 ```
 
+## Lint
+
+To lint the project, run the following command:
+```bash
+npm run lint
+```
+
 ## E2E test
 The project uses Cypress for E2E tests. 
 

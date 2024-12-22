@@ -155,7 +155,7 @@ function EditCustomerPage() {
 
   return (
     <RestrictedContent
-      children={
+      slot={
         <Container maxWidth="lg" sx={{ mt: 4 }}>
           <Typography variant="h4" align="center" gutterBottom data-testid="edit-customer-title">
             Customers

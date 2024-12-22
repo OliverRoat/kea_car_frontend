@@ -102,7 +102,7 @@ function CarAccessoriesPage() {
 
   return (
     <RestrictedContent
-      children={
+      slot={
         <Box
           p={3}
           sx={{

@@ -88,7 +88,7 @@ function CustomersPage() {
 
   return (
     <RestrictedContent
-      children={
+      slot={
         <Box
           sx={{
             maxWidth: "1200px",

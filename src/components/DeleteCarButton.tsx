@@ -14,7 +14,7 @@ const DeleteCarButton: React.FC<DeleteCarButtonProps> = ({
   car,
   onDeleteCar,
 }) => {
-  const { loading, error, deleteCar } = useCar();
+  const { loading, deleteCar } = useCar();
   const [modalOpen, setModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
 
@@ -22,8 +22,8 @@ const DeleteCarButton: React.FC<DeleteCarButtonProps> = ({
     try {
       await deleteCar(car.id, deletePurchaseToo);
       console.log("Car deleted successfully:", car);
-      onDeleteCar && onDeleteCar(car.id); // Notify parent component
-    } catch (err: any) {
+      if (onDeleteCar) onDeleteCar(car.id); // Notify parent component
+    } catch (err: unknown) {
       console.error("Failed to delete car:", err);
       setErrorModalOpen(true);
     }

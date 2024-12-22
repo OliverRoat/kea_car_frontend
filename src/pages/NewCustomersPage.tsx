@@ -56,8 +56,8 @@ function NewCustomerPage() {
       setError("Address is required");
       return;
     }
-    
-    try {    
+
+    try {
       const newCustomer = {
         first_name: firstName,
         last_name: lastName,
@@ -67,14 +67,14 @@ function NewCustomerPage() {
       };
       await apiClient.post("/customer", newCustomer);
       navigate(redirectTo);
-    } catch (err) {
+    } catch {
       setError("Failed to create customer. Please try again.");
     }
   };
 
   return (
     <RestrictedContent
-      children={
+      slot={
         <Container
           maxWidth="sm"
           sx={{

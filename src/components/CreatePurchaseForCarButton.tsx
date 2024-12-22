@@ -27,7 +27,7 @@ const CreatePurchaseForCarButton: React.FC<CreatePurchaseForCarButtonProps> = ({
       await createPurchase(purchaseData);
       console.log("Purchase created successfully");
       const updatedCar = { ...car, is_purchased: true };
-      onPurchaseCreated && onPurchaseCreated(updatedCar);
+      if (onPurchaseCreated) onPurchaseCreated(updatedCar);
     } catch (err) {
       console.error(error, err);
       setErrorModalOpen(true);

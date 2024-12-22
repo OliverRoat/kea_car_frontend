@@ -22,7 +22,7 @@ interface UseCustomersReturn {
 
 const useCustomers = (): UseCustomersReturn => {
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [customer] = useState<Customer | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
