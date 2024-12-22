@@ -4,7 +4,7 @@ A frontend application designed for the backend application found at https://git
 ## CI/CD 
 [![Publish VM Production](https://github.com/OliverRoat/kea_car_frontend/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/OliverRoat/kea_car_frontend/actions/workflows/ci-cd.yaml)
 
-The project uses GitHub Actions for CI/CD. The workflow is defined in `.github/workflows/ci-cd.yaml`. The workflow is triggered on push to the `main` branch. The workflow builds the project, runs the E2E tests, and deploys the project to the VM. 
+The project uses GitHub Actions for CI/CD. The workflow is defined in `.github/workflows/ci-cd.yaml`. The workflow is triggered on push to the `main` branch. The workflow builds the project, eslint, runs the E2E tests, and deploys the project to the VM. 
 
 ## Install
 
