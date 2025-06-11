@@ -177,9 +177,9 @@ function CarsListPage() {
                       }, Address: ${car.customer.address ?? ""}`,
                     },
                     {
-                      title: "Salesperson",
-                      key: `sales-person-${car.id}`,
-                      content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
+                      title: "Employee",
+                      key: `employee-${car.id}`,
+                      content: `${car.employee.first_name} ${car.employee.last_name}, Email: ${car.employee.email}`,
                     },
                   ].map(({ title, key, content }) => (
                     <Box

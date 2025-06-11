@@ -38,7 +38,7 @@ const useCustomers = (): UseCustomersReturn => {
   const createCustomer = (newCustomer: Omit<Customer, "id">) => {
     setLoading(true);
     apiClient
-      .post<Customer>("/customer", newCustomer)
+      .post<Customer>("/customers", newCustomer)
       .then(() => fetchAllCustomers()) // Refresh list after creation
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
@@ -47,7 +47,7 @@ const useCustomers = (): UseCustomersReturn => {
   const deleteCustomer = (id: string) => {
     setLoading(true);
     apiClient
-      .delete(`/customer/${id}`)
+      .delete(`/customers/${id}`)
       .then(() => setCustomers(customers.filter((customer) => customer.id !== id)))
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));

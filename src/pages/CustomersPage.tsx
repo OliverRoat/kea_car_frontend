@@ -40,8 +40,8 @@ function CustomersPage() {
     const selectedCustomer = customers.find(
       (customer) => customer.id === customerId
     );
-    const salesPerson = JSON.parse(
-      sessionStorage.getItem("salesPerson") || "{}"
+    const employee = JSON.parse(
+      sessionStorage.getItem("employee") || "{}"
     );
 
     if (
@@ -49,7 +49,7 @@ function CustomersPage() {
       !savedCar.model ||
       !savedCar.color ||
       !selectedCustomer ||
-      !salesPerson.id
+      !employee.id
     ) {
       console.error("Required data is missing");
       return;
@@ -59,13 +59,13 @@ function CustomersPage() {
       models_id: savedCar.model.id,
       colors_id: savedCar.color.id,
       customers_id: selectedCustomer.id,
-      sales_people_id: salesPerson.id,
+      employees_id: employee.id,
       accessory_ids: savedCar.accessories.map((acc: Accessory) => acc.id),
       insurance_ids: savedCar.insurances.map((ins: Insurance) => ins.id),
     };
 
     try {
-      const response = await apiClient.post("/car", carData);
+      const response = await apiClient.post("/cars", carData);
       console.log("Car created successfully:", response.data);
 
       sessionStorage.removeItem("savedCar");

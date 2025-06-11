@@ -5,7 +5,7 @@ import { Customer } from "./useCustomers";
 import { Color, Model } from "./useModels";
 import { Accessory } from "./useAccessories";
 import { Insurance } from "./useInsurances";
-import { SalesPerson } from "./useLogin";
+import { Employee } from "./useLogin";
 
 
 interface CarData {
@@ -13,7 +13,7 @@ interface CarData {
   models_id: string;
   colors_id: string;
   customers_id: string;
-  sales_people_id: string;
+  employees_id: string;
   accessory_ids: string[];
   insurance_ids: string[];
 }
@@ -26,7 +26,7 @@ export interface Car {
   accessories: Accessory[];
   insurances: Insurance[];
   customer: Customer;
-  sales_person: SalesPerson;
+  employee: Employee;
   total_price: number;
   is_purchased: boolean;
 }
@@ -54,7 +54,7 @@ const useCar = (): UseCarReturn => {
     setError(null);
 
     try {
-      const response = await apiClient.post("/car", carData);
+      const response = await apiClient.post("/cars", carData);
       setCar(response.data);
       return response.data;
     } catch (err: any) {
@@ -72,7 +72,7 @@ const useCar = (): UseCarReturn => {
     try {
       const query = deletePurchaseToo ? "?delete_purchase_too=true" : "";
       console.log("Deleting car:", carId);
-      const response = await apiClient.delete(`/car/${carId}${query}`);
+      const response = await apiClient.delete(`/cars/${carId}${query}`);
       console.log("Deleted car:", response.data); 
       setAllCars((prevCars) => prevCars.filter((car) => car.id !== carId));
     } catch (err: any) {
@@ -106,7 +106,7 @@ const useCar = (): UseCarReturn => {
     setError(null);
 
     try {
-      const response = await apiClient.get<Car>(`/car/${id}`);
+      const response = await apiClient.get<Car>(`/cars/${id}`);
       setCar(response.data);
       console.log("Fetched car:", response.data);
     } catch (err: any) {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Employee } from "../hooks/useLogin";
 import {
   AppBar,
   Toolbar,
@@ -60,9 +61,20 @@ const NavBar = () => {
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // Get employee from sessionStorage
+  let employee: Employee | null = null;
+  try {
+    const empStr = sessionStorage.getItem("employee");
+    if (empStr) {
+      employee = JSON.parse(empStr) as Employee;
+    }
+  } catch {
+    employee = null;
+  }
+
   const handleLogout = () => {
     sessionStorage.removeItem("access_token");
-    sessionStorage.removeItem("salesPerson");
+    sessionStorage.removeItem("employee");
     navigate("/login");
   };
 
@@ -185,6 +197,22 @@ const NavBar = () => {
                   }}
                 />
               </ThemeToggleButton>
+              <Box sx={{ ml: 3, display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                {employee ? (
+                  <>
+                    <span style={{ fontWeight: 500, color: theme.palette.text.primary }}>
+                      {employee.first_name} {employee.last_name}
+                    </span>
+                    <span style={{ fontSize: "0.9em", color: theme.palette.text.secondary }}>
+                      {employee.role}
+                    </span>
+                  </>
+                ) : (
+                  <span style={{ fontSize: "0.9em", color: theme.palette.text.secondary }}>
+                    Not logged in
+                  </span>
+                )}
+              </Box>
             </Box>
           )}
 

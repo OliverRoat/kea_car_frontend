@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import useCar from "../hooks/useCar";
 import RestrictedContent from "../components/RestrictedContent";
-import SeasonalTires from "../components/SeasonalTires";
 
 function CarReceiptPage() {
   const { car_id } = useParams<{ car_id: string }>();
@@ -45,7 +44,6 @@ function CarReceiptPage() {
   return (
     <RestrictedContent slot={
       <>
-        <SeasonalTires />
         <Box sx={{ position: "relative" }}>
           <Container maxWidth="lg" sx={{ mt: 4, padding: isMobile ? 2 : 4 }}>
             <Typography
@@ -116,9 +114,9 @@ function CarReceiptPage() {
                           testId: "car-receipt-customer",
                         },
                         {
-                          title: "Salesperson",
-                          content: `${car.sales_person.first_name} ${car.sales_person.last_name}, Email: ${car.sales_person.email}`,
-                          testId: "car-receipt-salesperson",
+                          title: "Employee",
+                          content: `${car.employee.first_name} ${car.employee.last_name}, Email: ${car.employee.email}`,
+                          testId: "car-receipt-employee",
                         },
                       ].map(({ title, content, testId }) => (
                         <Box

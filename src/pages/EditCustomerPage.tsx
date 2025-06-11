@@ -77,10 +77,8 @@ function EditCustomerPage() {
        */
       if (
         !selectedCustomer.email ||
-        !selectedCustomer.phone_number ||
         !selectedCustomer.first_name ||
-        !selectedCustomer.last_name ||
-        !selectedCustomer.address
+        !selectedCustomer.last_name
       ) {
         showAlert("All fields are required", "error");
         return;
@@ -105,7 +103,7 @@ function EditCustomerPage() {
       }
 
       try {
-        await apiClient.put(`/customer/${selectedCustomer.id}`, updatedFields);
+        await apiClient.put(`/customers/${selectedCustomer.id}`, updatedFields);
         fetchAllCustomers();
         handleClose();
         showAlert("Customer updated successfully", "success");
@@ -126,7 +124,7 @@ function EditCustomerPage() {
 
   const handleDelete = async (customerId: string) => {
     try {
-      await apiClient.delete(`/customer/${customerId}`);
+      await apiClient.delete(`/customers/${customerId}`);
       fetchAllCustomers();
       showAlert("Customer deleted successfully", "success");
     } catch (err) {

@@ -21,7 +21,6 @@ const CreatePurchaseForCarButton: React.FC<CreatePurchaseForCarButtonProps> = ({
   const handleCreatePurchase = async () => {
     try {
       const purchaseData: PurchaseData = {
-        date_of_purchase: null,
         cars_id: car.id,
       };
       await createPurchase(purchaseData);

@@ -47,16 +47,6 @@ function NewCustomerPage() {
       return;
     }
 
-    if (!phoneNumber) {
-      setError("Phone Number is required");
-      return;
-    }
-
-    if (!address) {
-      setError("Address is required");
-      return;
-    }
-
     try {
       const newCustomer = {
         first_name: firstName,
@@ -65,7 +55,7 @@ function NewCustomerPage() {
         phone_number: phoneNumber,
         address,
       };
-      await apiClient.post("/customer", newCustomer);
+      await apiClient.post("/customers", newCustomer);
       navigate(redirectTo);
     } catch {
       setError("Failed to create customer. Please try again.");

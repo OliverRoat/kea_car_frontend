@@ -270,28 +270,28 @@ function CarPage() {
                       component="div"
                       sx={{ mb: isMobile ? 0.5 : 1 }}
                     >
-                      Salesperson
+                      Employee
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       sx={{ fontSize: isMobile ? "1rem" : "1.2rem", mt: 3 }}
                     >
-                      First Name: {selectedCar.sales_person.first_name}
+                      First Name: {selectedCar.employee.first_name}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       sx={{ fontSize: isMobile ? "1rem" : "1.2rem", mt: 3 }}
                     >
-                      Last Name: {selectedCar.sales_person.last_name}
+                      Last Name: {selectedCar.employee.last_name}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       sx={{ fontSize: isMobile ? "1rem" : "1.2rem", mt: 3 }}
                     >
-                      Email: {selectedCar.sales_person.email}
+                      Email: {selectedCar.employee.email}
                     </Typography>
                   </Box>
                 </Grid>

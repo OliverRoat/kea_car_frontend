@@ -3,7 +3,6 @@ import apiClient from "../services/apiClient";
 import { Car } from "./useCar";
 
 export interface PurchaseData {
-    date_of_purchase: string | null;
     cars_id: string;
 }
 
@@ -38,7 +37,7 @@ const usePurchase = (): UsePurchaseReturn => {
       setError(null);
   
       try {
-        const response = await apiClient.post("/purchase", purchaseData);
+        const response = await apiClient.post("/purchases", purchaseData);
         setPurchase(response.data);
         return response.data;
       } catch (err: any) {
@@ -72,7 +71,7 @@ const usePurchase = (): UsePurchaseReturn => {
       setError(null);
   
       try {
-        const response = await apiClient.get<Purchase>(`/purchase/${id}`);
+        const response = await apiClient.get<Purchase>(`/purchases/${id}`);
         setPurchase(response.data);
         console.log("Fetched purchase by ID:", response.data);
       } catch (err: any) {
@@ -89,7 +88,7 @@ const usePurchase = (): UsePurchaseReturn => {
         setError(null);
     
         try {
-          const response = await apiClient.get<Purchase>(`/purchase/car/${id}`);
+          const response = await apiClient.get<Purchase>(`/purchases/car/${id}`);
           setPurchase(response.data);
           console.log("Fetched purchase by car ID:", response.data);
         } catch (err: any) {

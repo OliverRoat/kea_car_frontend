@@ -1,22 +1,30 @@
 import { useState } from "react";
-import apiClient from "../services/apiClient";
+import apiAuthClient from "../services/authClient";
 
-export interface SalesPerson {
+export enum UserRole {
+  Admin = "admin",
+  Manager = "manager",
+  SalesPerson = "sales_person",
+}
+
+export interface Employee {
   id: string;
   email: string;
   first_name: string;
   last_name: string;
+  role: UserRole;
+  is_deleted: boolean;
 }
 
 interface UseLoginReturn {
   login: (email: string, password: string) => Promise<void>;
   error: string | null;
   loading: boolean;
-  salesPerson: SalesPerson | null;
+  employee: Employee | null;
 }
 
 const useLogin = (): UseLoginReturn => {
-  const [salesPerson, setSalesPerson] = useState<SalesPerson | null>(null);
+  const [employee, setEmployee] = useState<Employee | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,14 +33,14 @@ const useLogin = (): UseLoginReturn => {
     setError(null);
 
     try {
-      const response = await apiClient.post("/login", { email, password });
-      const { access_token, sales_person } = response.data;
+      const response = await apiAuthClient.post("/login", { email, password });
+      const { access_token, employee } = response.data;
 
-      // Store the access token and salesperson information
+      // Store the access token and employee information
       sessionStorage.setItem("access_token", access_token);
-      sessionStorage.setItem("salesPerson", JSON.stringify(sales_person));
+      sessionStorage.setItem("employee", JSON.stringify(employee));
 
-      setSalesPerson(sales_person);
+      setEmployee(employee);
     } catch (err: any) {
       setError(err.response?.data?.message ?? "Failed to login");
     } finally {
@@ -40,7 +48,7 @@ const useLogin = (): UseLoginReturn => {
     }
   };
 
-  return { login, error, loading, salesPerson };
+  return { login, error, loading, employee };
 };
 
 export default useLogin;
