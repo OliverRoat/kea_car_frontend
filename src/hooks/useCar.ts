@@ -2,7 +2,8 @@
 import { useState, useCallback } from "react";
 import apiClient from "../services/apiClient";
 import { Customer } from "./useCustomers";
-import { Color, Model } from "./useModels";
+import { Model } from "./useModels";
+import { Color } from "./useColors";
 import { Accessory } from "./useAccessories";
 import { Insurance } from "./useInsurances";
 import { Employee } from "./useLogin";
