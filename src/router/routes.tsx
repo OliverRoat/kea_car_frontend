@@ -10,6 +10,7 @@ import CarsListPage from "../pages/CarsListPage";
 import CarReceiptPage from "../pages/CarReceiptPage";
 import CarPage from "../pages/CarPage";
 import { Navigate } from "react-router-dom";
+import CreateModelPage from "../pages/CreateModelPage";
 
 export const routes = [
   {
@@ -71,5 +72,10 @@ export const routes = [
     path: "*",
     name: "Not Found",
     element: <Navigate to="/login" />,
+  },
+  {
+    path: "/create-model",
+    name: "Create Model",
+    element: <CreateModelPage />,
   },
 ];

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { Brand } from "./useBrands";
+import { Color } from "./useColors";
 
 export interface ModelQuery {
   brandId: string | null;
@@ -14,13 +15,13 @@ export interface Model {
   colors: Color[];
   brand: Brand;
 }
-export interface Color {
-  id: string;
+
+interface CreateModelInput {
   name: string;
   price: number;
-  red_value: number;
-  green_value: number;
-  blue_value: number;
+  brands_id: string;
+  color_ids: string[];
+  model_image: File;
 }
 
 const useModels = (modelQuery: ModelQuery) => {
@@ -38,7 +39,27 @@ const useModels = (modelQuery: ModelQuery) => {
       .catch((error) => setError(error.message));
   }, [modelQuery.brandId]);
 
-  return { models, error };
+  // Add createModel function
+  const createModel = async (input: CreateModelInput): Promise<Model | null> => {
+    const formData = new FormData();
+    formData.append("name", input.name);
+    formData.append("price", input.price.toString());
+    formData.append("brands_id", input.brands_id);
+    input.color_ids.forEach((id) => formData.append("color_ids", id));
+    formData.append("model_image", input.model_image);
+
+    try {
+      const response = await apiClient.post<Model>("/models", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return response.data;
+    } catch (err: any) {
+      setError(err.message);
+      return null;
+    }
+  };
+
+  return { models, error, createModel };
 };
 
 export default useModels;

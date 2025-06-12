@@ -83,8 +83,17 @@ const NavBar = () => {
   };
 
   const navItems = [
-    { label: "Customers", onClick: () => navigate("/edit-customer"), id: "view-customers" },
+    {
+      label: "Customers",
+      onClick: () => navigate("/edit-customer"),
+      id: "view-customers",
+    },
     { label: "Cars", onClick: () => navigate("/cars"), id: "view-cars" },
+    {
+      label: "Create Model",
+      onClick: () => navigate("/create-model"),
+      id: "create-model",
+    },
   ];
 
   return (
@@ -172,7 +181,9 @@ const NavBar = () => {
               </Button>
               <ThemeToggleButton
                 onClick={toggleTheme}
-                data-testid={isDarkMode ? "dark-mode-toggle" : "light-mode-toggle"}
+                data-testid={
+                  isDarkMode ? "dark-mode-toggle" : "light-mode-toggle"
+                }
                 sx={{
                   backgroundColor: isDarkMode
                     ? "rgba(255, 255, 255, 0.1)"
@@ -197,18 +208,40 @@ const NavBar = () => {
                   }}
                 />
               </ThemeToggleButton>
-              <Box sx={{ ml: 3, display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+              <Box
+                sx={{
+                  ml: 3,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                }}
+              >
                 {employee ? (
                   <>
-                    <span style={{ fontWeight: 500, color: theme.palette.text.primary }}>
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: theme.palette.text.primary,
+                      }}
+                    >
                       {employee.first_name} {employee.last_name}
                     </span>
-                    <span style={{ fontSize: "0.9em", color: theme.palette.text.secondary }}>
+                    <span
+                      style={{
+                        fontSize: "0.9em",
+                        color: theme.palette.text.secondary,
+                      }}
+                    >
                       {employee.role}
                     </span>
                   </>
                 ) : (
-                  <span style={{ fontSize: "0.9em", color: theme.palette.text.secondary }}>
+                  <span
+                    style={{
+                      fontSize: "0.9em",
+                      color: theme.palette.text.secondary,
+                    }}
+                  >
                     Not logged in
                   </span>
                 )}
