@@ -4,7 +4,6 @@ import apiClient from "../services/apiClient";
 export interface Accessory {
   id: string;
   name: string;
-  description: string;
   price: number;
 }
 

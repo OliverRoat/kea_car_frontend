@@ -12,7 +12,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import useModels, { Color } from "../hooks/useModels";
+import useModels from "../hooks/useModels";
+import { Color }  from "../hooks/useColors";
 import RestrictedContent from "../components/RestrictedContent";
 
 function ModelPage() {

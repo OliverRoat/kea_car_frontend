@@ -88,13 +88,20 @@ const NavBar = () => {
       onClick: () => navigate("/edit-customer"),
       id: "view-customers",
     },
-    { label: "Cars", onClick: () => navigate("/cars"), id: "view-cars" },
-    {
+    { 
+      label: "Cars", 
+      onClick: () => navigate("/cars"), 
+      id: "view-cars",
+    },
+  ];
+
+  if (employee && (employee.role === "admin" || employee.role === "manager")) {
+    navItems.push({
       label: "Create Model",
       onClick: () => navigate("/create-model"),
       id: "create-model",
-    },
-  ];
+    });
+  }
 
   return (
     <>

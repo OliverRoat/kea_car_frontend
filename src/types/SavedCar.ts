@@ -1,7 +1,8 @@
 // src/types/SavedCar.ts
 
 import { Brand } from "../hooks/useBrands";
-import { Color, Model } from "../hooks/useModels";
+import { Model } from "../hooks/useModels";
+import { Color } from "../hooks/useColors";
 import { Accessory } from "../hooks/useAccessories";
 import { Insurance } from "../hooks/useInsurances";
 
