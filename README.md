@@ -1,5 +1,7 @@
 # Kea Car Frontend
-A frontend application designed for the backend application found at https://github.com/niiicolai/kea_car_backend.
+A frontend application designed for the monolithic backend application found at https://github.com/niiicolai/kea_car_backend.
+
+And for the microservice backends at https://github.com/Marcus-K-Thorsen/kea_car_microservices.
 
 ## CI/CD 
 [![Publish VM Production](https://github.com/OliverRoat/kea_car_frontend/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/OliverRoat/kea_car_frontend/actions/workflows/ci-cd.yaml)
